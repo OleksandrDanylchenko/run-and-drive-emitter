@@ -5,13 +5,12 @@ import '@fontsource/roboto/700.css';
 
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import Routing from '@navigation/Routing';
+import { store } from '@redux/store';
+import theme from '@styles/theme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
-import Routing from './navigation/Routing';
-import { store } from './redux/store';
-import theme from './styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>

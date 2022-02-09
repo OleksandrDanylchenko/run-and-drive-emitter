@@ -17,7 +17,11 @@
     "noEmit": true,
     "jsx": "react",
     "paths": {
-      "@pages/*": ["./src/pages/*"]
+      "@redux/*": ["./src/redux/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@components/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"]
     }
   },
   "include": ["./src"],
