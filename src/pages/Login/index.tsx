@@ -12,9 +12,9 @@ const Login: FC = () => {
     <Container maxWidth="sm">
       <Box css={TitleBlock}>
         <Typography variant="h1" css={Title}>
-          Please active the emitter
+          Please activate the emitter
         </Typography>
-        <SettingsInputAntennaIcon />
+        <SettingsInputAntennaIcon fontSize="large" />
       </Box>
     </Container>
   );

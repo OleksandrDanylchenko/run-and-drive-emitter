@@ -1,1 +1,3 @@
-export const pxToRem = (px: string) => `${parseFloat(px) / parseFloat(px)}rem`;
+import { htmlFontSize } from '@styles/constants';
+
+export const pxToRem = (px: string) => `${parseFloat(px) / parseFloat(htmlFontSize)}rem`;
