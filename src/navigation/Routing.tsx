@@ -10,7 +10,7 @@ const Routing: FC = () => (
     <Routes>
       <Route path={'/login'} element={<Login />} />
       <Route path={'/'} element={<Dashboard />} />
-      <Route path={'*'} element={<Navigate to="/" />} />
+      <Route element={<Navigate to="/" />} />
     </Routes>{' '}
   </BrowserRouter>
 );
