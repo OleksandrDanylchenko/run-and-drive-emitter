@@ -3,6 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -10,13 +11,16 @@ import { Provider } from 'react-redux';
 
 import Routing from './navigation/Routing';
 import { store } from './redux/store';
+import theme from './styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <StyledEngineProvider injectFirst>
-        <CssBaseline enableColorScheme />
-        <Routing />
+        <ThemeProvider theme={theme}>
+          <CssBaseline enableColorScheme />
+          <Routing />
+        </ThemeProvider>
       </StyledEngineProvider>
     </Provider>
   </React.StrictMode>,
