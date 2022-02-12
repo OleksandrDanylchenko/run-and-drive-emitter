@@ -25,7 +25,3 @@ export const Title = css`
 export const Form = css`
   ${flexbox({ direction: 'column' })}
 `;
-
-export const FormButtons = css`
-  ${flexbox({ alignItems: 'center', justifyContent: 'end', gap: pxToRem('8px') })};
-`;

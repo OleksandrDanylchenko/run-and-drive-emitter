@@ -5,7 +5,6 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Container from '@mui/material/Container';
@@ -22,7 +21,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { isEmpty } from '../../utils';
-import { Form, FormButtons, FormWrapper, LoginWrapper, Title } from './styles';
+import { Form, FormWrapper, LoginWrapper, Title } from './styles';
 
 export interface LoginForm {
   login: string;
@@ -105,7 +104,7 @@ const Login: FC = () => {
             }}
             {...register('password', { required: true })}
           />
-          <Box css={FormButtons}>
+          <Stack direction="row" alignItems="center" justifyContent="end" spacing={2}>
             <Fade in={isDirty && !isLoading}>
               <Button onClick={() => reset()}>Reset</Button>
             </Fade>
@@ -118,7 +117,7 @@ const Login: FC = () => {
               onClick={handleSubmit(onSubmit)}>
               Sign In
             </LoadingButton>
-          </Box>
+          </Stack>
         </form>
         <Collapse in={!!error}>
           <Alert severity="error">
