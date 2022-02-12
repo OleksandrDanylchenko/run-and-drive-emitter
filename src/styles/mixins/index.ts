@@ -34,8 +34,8 @@ export const flexbox = (options: {
   justifyItems?: Property.JustifyItems;
   gap?: Property.Gap;
 }) => css`
-  display: ${options.display};
-  flex-direction: ${options.direction};
+  display: ${options.display || 'flex'};
+  flex-direction: ${options.direction || 'row'};
 
   ${options.placeContent
     ? css`
@@ -55,7 +55,7 @@ export const flexbox = (options: {
         justify-items: ${options.justifyItems};
       `}
 
-  flex-wrap: ${options.wrap};
+  flex-wrap: ${options.wrap || 'nowrap'};
   flex-shrink: ${options.shrink};
   flex-grow: ${options.grow};
   gap: ${options.gap};
