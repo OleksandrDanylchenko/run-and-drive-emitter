@@ -17,14 +17,6 @@ export const FormWrapper = css`
   padding: ${pxToRem('20px')};
 `;
 
-export const TitleWrapper = css`
-  ${flexbox({
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: pxToRem('20px'),
-  })}
-`;
-
 export const Title = css`
   font-size: ${pxToRem('27px')};
   font-weight: 500;

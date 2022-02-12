@@ -3,16 +3,17 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Collapse } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
 import Container from '@mui/material/Container';
 import Fade from '@mui/material/Fade';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useMockLogin } from '@pages/Login/useMockLogin';
@@ -21,14 +22,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { isEmpty } from '../../utils';
-import {
-  Form,
-  FormButtons,
-  FormWrapper,
-  LoginWrapper,
-  Title,
-  TitleWrapper,
-} from './styles';
+import { Form, FormButtons, FormWrapper, LoginWrapper, Title } from './styles';
 
 export interface LoginForm {
   login: string;
@@ -70,12 +64,16 @@ const Login: FC = () => {
   return (
     <Container maxWidth="sm" css={LoginWrapper}>
       <Paper elevation={9} css={FormWrapper}>
-        <Box css={TitleWrapper}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={4}>
           <Typography variant="h1" css={Title}>
             Please authenticate the emitter
           </Typography>
           <SettingsInputAntennaIcon fontSize="large" />
-        </Box>
+        </Stack>
         <form css={Form}>
           <TextField
             label="Activation login"
