@@ -16,6 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
+    "jsxImportSource": "@emotion/react",
     "paths": {
       "@redux/*": ["./src/redux/*"],
       "@navigation/*": ["./src/navigation/*"],
