@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { Property } from 'csstype';
 
 // https://allyjs.io/tutorials/hiding-elements.html#2017-edition-of-visuallyhidden
 export const visuallyHidden = css`
@@ -20,18 +21,18 @@ export const visuallyHidden = css`
 `;
 
 export const flexbox = (options: {
-  display?: string;
-  direction?: string;
-  placeContent?: string;
-  placeItems?: string;
-  wrap?: string;
-  shrink?: string;
-  grow?: string;
-  alignContent?: string;
-  justifyContent?: string;
-  alignItems?: string;
-  justifyItems?: string;
-  gap?: string;
+  display?: Property.Display;
+  direction?: Property.FlexDirection;
+  placeContent?: Property.PlaceContent;
+  placeItems?: Property.PlaceItems;
+  wrap?: Property.FlexWrap;
+  shrink?: Property.FlexShrink;
+  grow?: Property.FlexGrow;
+  alignContent?: Property.AlignContent;
+  justifyContent?: Property.JustifyContent;
+  alignItems?: Property.AlignItems;
+  justifyItems?: Property.JustifyItems;
+  gap?: Property.Gap;
 }) => css`
   display: ${options.display};
   flex-direction: ${options.direction};
