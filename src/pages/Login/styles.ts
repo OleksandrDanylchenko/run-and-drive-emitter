@@ -9,6 +9,11 @@ export const LoginWrapper = css`
 `;
 
 export const FormWrapper = css`
+  ${flexbox({
+    direction: 'column',
+    gap: pxToRem('15px'),
+  })}
+
   padding: ${pxToRem('20px')};
 `;
 
@@ -18,8 +23,6 @@ export const TitleWrapper = css`
     justifyContent: 'space-between',
     gap: pxToRem('20px'),
   })}
-
-  padding-bottom: ${pxToRem('10px')}
 `;
 
 export const Title = css`
@@ -33,5 +36,4 @@ export const Form = css`
 
 export const FormButtons = css`
   ${flexbox({ alignItems: 'center', justifyContent: 'end', gap: pxToRem('8px') })};
-  padding-top: ${pxToRem('10px')};
 `;

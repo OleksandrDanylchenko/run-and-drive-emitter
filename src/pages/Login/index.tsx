@@ -3,9 +3,13 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Collapse } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Fade from '@mui/material/Fade';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Paper from '@mui/material/Paper';
@@ -16,6 +20,7 @@ import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { isEmpty } from '../../utils';
 import {
   Form,
   FormButtons,
@@ -49,6 +54,10 @@ const Login: FC = () => {
   } = useForm<LoginForm>({
     mode: 'onBlur',
     resolver: yupResolver(loginFormSchema),
+    defaultValues: {
+      login: '',
+      password: '',
+    },
   });
 
   const [isShowPassword, setShowPassword] = useState(false);
@@ -56,7 +65,7 @@ const Login: FC = () => {
     setShowPassword((showPassword) => !showPassword);
   };
 
-  const [isLoading, onSubmit] = useMockLogin();
+  const [isLoading, onSubmit, error] = useMockLogin();
 
   return (
     <Container maxWidth="sm" css={LoginWrapper}>
@@ -99,11 +108,13 @@ const Login: FC = () => {
             {...register('password', { required: true })}
           />
           <Box css={FormButtons}>
-            {isDirty && !isLoading && <Button onClick={() => reset()}>Reset</Button>}
+            <Fade in={isDirty && !isLoading}>
+              <Button onClick={() => reset()}>Reset</Button>
+            </Fade>
             <LoadingButton
               variant="contained"
               endIcon={<VpnKeyIcon />}
-              disabled={!errors}
+              disabled={!isEmpty(errors)}
               loading={isLoading}
               loadingPosition="end"
               onClick={handleSubmit(onSubmit)}>
@@ -111,6 +122,12 @@ const Login: FC = () => {
             </LoadingButton>
           </Box>
         </form>
+        <Collapse in={!!error}>
+          <Alert severity="error">
+            <AlertTitle>Authentication failed</AlertTitle>
+            {error}
+          </Alert>
+        </Collapse>
       </Paper>
     </Container>
   );

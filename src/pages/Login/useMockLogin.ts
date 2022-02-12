@@ -1,8 +1,11 @@
 import { LoginForm } from '@pages/Login/index';
 import { useState } from 'react';
 
-export const useMockLogin = (): [isLoading: boolean, onSubmit: any] => {
+const defaultErrors = 'Login is banned in the system';
+
+export const useMockLogin = (): [isLoading: boolean, onSubmit: any, error: any] => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit = (form: LoginForm) => {
     console.log(form);
@@ -11,8 +14,9 @@ export const useMockLogin = (): [isLoading: boolean, onSubmit: any] => {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+      setError(defaultErrors);
+    }, 200);
   };
 
-  return [isLoading, onSubmit];
+  return [isLoading, onSubmit, error];
 };
