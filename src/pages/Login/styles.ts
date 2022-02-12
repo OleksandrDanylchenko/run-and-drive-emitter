@@ -15,3 +15,7 @@ export const TitleBlock = css`
 export const Title = css`
   font-size: ${pxToRem('35px')};
 `;
+
+export const FormWrapper = css`
+  ${flexbox({ direction: 'column' })}
+`;
