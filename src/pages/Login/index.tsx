@@ -100,7 +100,7 @@ const Login: FC = () => {
             <Button
               variant="contained"
               endIcon={<VpnKeyIcon />}
-              disabled={!!errors}
+              disabled={!errors}
               onClick={handleSubmit(onSubmit)}>
               Sign In
             </Button>
