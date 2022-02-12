@@ -1,3 +1,4 @@
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import SupportIcon from '@mui/icons-material/Support';
 import AppBar from '@mui/material/AppBar';
@@ -22,6 +23,9 @@ const Dashboard: FC = () => {
           </Box>
           <IconButton aria-label="Contact support" color="inherit">
             <SupportIcon />
+          </IconButton>
+          <IconButton edge="end" aria-label="Activation engineer account" color="inherit">
+            <AccountCircle />
           </IconButton>
         </Toolbar>
       </AppBar>
