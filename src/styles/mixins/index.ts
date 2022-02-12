@@ -18,3 +18,44 @@ export const visuallyHidden = css`
     overflow: hidden;
   }
 `;
+
+export const flexbox = (options: {
+  display?: string;
+  direction?: string;
+  placeContent?: string;
+  placeItems?: string;
+  wrap?: string;
+  shrink?: string;
+  grow?: string;
+  alignContent?: string;
+  justifyContent?: string;
+  alignItems?: string;
+  justifyItems?: string;
+  gap?: string;
+}) => css`
+  display: ${options.display};
+  flex-direction: ${options.direction};
+
+  ${options.placeContent
+    ? css`
+        place-content: ${options.placeContent};
+      `
+    : css`
+        align-content: ${options.alignContent};
+        justify-content: ${options.justifyContent};
+      `}
+
+  ${options.placeItems
+    ? css`
+        place-items: ${options.placeContent};
+      `
+    : css`
+        align-items: ${options.alignItems};
+        justify-items: ${options.justifyItems};
+      `}
+
+  flex-wrap: ${options.wrap};
+  flex-shrink: ${options.shrink};
+  flex-grow: ${options.grow};
+  gap: ${options.gap};
+`;
