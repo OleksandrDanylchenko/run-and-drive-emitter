@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -10,6 +11,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useMockLogin } from '@pages/Login/useMockLogin';
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -23,7 +25,7 @@ import {
   TitleWrapper,
 } from './styles';
 
-interface LoginForm {
+export interface LoginForm {
   login: string;
   password: string;
 }
@@ -48,12 +50,13 @@ const Login: FC = () => {
     mode: 'onBlur',
     resolver: yupResolver(loginFormSchema),
   });
-  const onSubmit = (data: any) => console.log(data);
 
   const [isShowPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword((showPassword) => !showPassword);
   };
+
+  const [isLoading, onSubmit] = useMockLogin();
 
   return (
     <Container maxWidth="sm" css={LoginWrapper}>
@@ -96,14 +99,16 @@ const Login: FC = () => {
             {...register('password', { required: true })}
           />
           <Box css={FormButtons}>
-            {isDirty && <Button onClick={() => reset()}>Reset</Button>}
-            <Button
+            {isDirty && !isLoading && <Button onClick={() => reset()}>Reset</Button>}
+            <LoadingButton
               variant="contained"
               endIcon={<VpnKeyIcon />}
               disabled={!errors}
+              loading={isLoading}
+              loadingPosition="end"
               onClick={handleSubmit(onSubmit)}>
               Sign In
-            </Button>
+            </LoadingButton>
           </Box>
         </form>
       </Paper>
