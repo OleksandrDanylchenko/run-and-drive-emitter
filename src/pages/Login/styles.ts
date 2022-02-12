@@ -16,6 +16,11 @@ export const Title = css`
   font-size: ${pxToRem('35px')};
 `;
 
-export const FormWrapper = css`
+export const Form = css`
   ${flexbox({ direction: 'column' })}
+`;
+
+export const FormButtons = css`
+  ${flexbox({ alignItems: 'center', justifyContent: 'end', gap: pxToRem('8px') })};
+  padding-top: ${pxToRem('10px')};
 `;
