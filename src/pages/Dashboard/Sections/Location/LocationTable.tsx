@@ -1,3 +1,4 @@
+import { TableRowData } from '@models/index';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,13 +15,7 @@ interface LocationTableProps {
 const LocationTable: FC<LocationTableProps> = ({ location }) => {
   const { accuracy, latitude, longitude, altitude, speed, heading } = location;
 
-  const tableRows = useMemo<
-    {
-      label: string;
-      value: number | string | null;
-      highlighted?: boolean;
-    }[]
-  >(
+  const tableRows = useMemo<TableRowData[]>(
     () => [
       {
         label: 'Accuracy',

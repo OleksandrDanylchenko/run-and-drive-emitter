@@ -3,10 +3,10 @@ import HideOnScroll from '@components/HideOnScroll';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
-import IndicatorsCard from '@pages/Dashboard/Sections/Indicators';
-import LocationCard from '@pages/Dashboard/Sections/Location';
 import React, { FC } from 'react';
 
+import IndicatorsCard from './Sections/Indicators';
+import LocationCard from './Sections/Location';
 import { Sections } from './styles';
 
 const Dashboard: FC = () => {
