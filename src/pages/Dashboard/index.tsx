@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
+import IndicatorsCard from '@pages/Dashboard/Sections/Indicators';
 import LocationCard from '@pages/Dashboard/Sections/Location';
 import React, { FC } from 'react';
 
@@ -44,6 +45,7 @@ const Dashboard: FC = () => {
       <Container maxWidth="sm">
         <Stack spacing={1} css={CardsList}>
           <LocationCard />
+          <IndicatorsCard />
         </Stack>
       </Container>
     </>
