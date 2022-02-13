@@ -10,19 +10,13 @@ import { Sections } from './styles';
 
 const Dashboard: FC = () => {
   return (
-    <>
-      <HideOnScroll scrollTriggerProps={{ threshold: 50 }}>
-        <Header />
-      </HideOnScroll>
-      <Toolbar id="back-to-top-anchor" />
-      <Container maxWidth="sm">
-        <Stack spacing={3} css={Sections}>
-          <LocationCard />
-          <IndicatorsCard />
-          <CharacteristicsCard />
-        </Stack>
-      </Container>
-    </>
+    <Container maxWidth="sm">
+      <Stack spacing={3} css={Sections}>
+        <LocationCard />
+        <IndicatorsCard />
+        <CharacteristicsCard />
+      </Stack>
+    </Container>
   );
 };
 
