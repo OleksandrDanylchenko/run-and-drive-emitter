@@ -1,6 +1,8 @@
 import { grey } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
+const defaultTheme = createTheme();
+
 const theme = createTheme({
   components: {
     MuiSkeleton: {
@@ -9,7 +11,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         rectangular: {
-          borderRadius: '4px',
+          borderRadius: defaultTheme.shape.borderRadius,
         },
       },
     },
@@ -23,7 +25,7 @@ const theme = createTheme({
     MuiTableContainer: {
       styleOverrides: {
         root: {
-          borderRadius: '4px',
+          borderRadius: defaultTheme.shape.borderRadius,
         },
       },
     },
