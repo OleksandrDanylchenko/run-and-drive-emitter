@@ -6,3 +6,13 @@ export const LocationTable = (theme: Theme) => css`
   border: 1px solid ${theme.palette.grey.A200};
   border-radius: 4px;
 `;
+
+export const LocationTableRow = (theme: Theme, highlighted?: boolean) => css`
+  ${highlighted &&
+  css`
+    background-color: ${theme.palette.action.focus};
+    td {
+      font-weight: 600;
+    }
+  `}
+`;

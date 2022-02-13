@@ -9,12 +9,11 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 
-import { LocationTable } from './styles';
+import { LocationTable, LocationTableRow } from './styles';
 
 const LocationCard: FC = () => {
   const [isShowMap, setShowMap] = useState(false);
@@ -29,20 +28,7 @@ const LocationCard: FC = () => {
           <Typography variant="h5">Location</Typography>
           <ExploreIcon />
         </Stack>
-        <TableContainer css={LocationTable}>
-          <Table aria-label="Location table">
-            <TableHead>
-              <TableCell align="center">Latitude</TableCell>
-              <TableCell align="center">Longitude</TableCell>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell align="center">59</TableCell>
-                <TableCell align="center">2</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <LocationValuesTable />
       </CardContent>
       <Collapse in={isShowMap} timeout="auto" unmountOnExit>
         <CardContent>
@@ -57,6 +43,64 @@ const LocationCard: FC = () => {
         </Button>
       </CardActions>
     </Card>
+  );
+};
+
+const LocationValuesTable: FC = () => {
+  const tableRows = useMemo<
+    {
+      label: string;
+      value: number | string;
+      highlighted?: boolean;
+    }[]
+  >(
+    () => [
+      {
+        label: 'Accuracy',
+        value: 326,
+        highlighted: true,
+      },
+      {
+        label: 'Latitude',
+        value: 59,
+      },
+      {
+        label: 'Longitude',
+        value: 22,
+      },
+      {
+        label: 'Altitude',
+        value: 224,
+      },
+      {
+        label: 'Speed',
+        value: 256,
+      },
+      {
+        label: 'Heading',
+        value: 125,
+      },
+    ],
+    [],
+  );
+
+  return (
+    <TableContainer css={LocationTable}>
+      <Table aria-label="Location table">
+        <TableBody>
+          {tableRows
+            .filter(({ value }) => !!value)
+            .map((row) => (
+              <TableRow
+                key={row.label}
+                css={(theme) => LocationTableRow(theme, row.highlighted)}>
+                <TableCell>{row.label}</TableCell>
+                <TableCell align="center">{row.value}</TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
