@@ -21,7 +21,7 @@
       "@redux/*": ["./src/redux/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@pages/*": ["./src/pages/*"],
-      "@components/*": ["./src/pages/*"],
+      "@components/*": ["./src/components/*"],
       "@styles/*": ["./src/styles/*"]
     }
   },
