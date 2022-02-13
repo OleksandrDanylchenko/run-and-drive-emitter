@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import React, { FC, useState } from 'react';
 
 import LocationTable from './LocationTable';
-import { LocationCardHeader } from './styles';
 
 const LocationCard: FC = () => {
   const [isShowMap, setShowMap] = useState(false);
@@ -46,7 +45,6 @@ const LocationCard: FC = () => {
             <Skeleton width="80%" />
           )
         }
-        css={LocationCardHeader}
       />
       <CardContent>
         {location ? (
