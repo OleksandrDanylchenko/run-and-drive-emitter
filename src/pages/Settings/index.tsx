@@ -5,11 +5,17 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import React, { FC } from 'react';
+import DeactivateModal from '@pages/Settings/DeactivateModal';
+import React, { FC, useState } from 'react';
 
 import { EngineerHeader, EngineerWrapper, SettingsWrapper } from './styles';
 
 const Settings: FC = () => {
+  const [isDeactivationOpened, setDeactivationOpened] = useState(false);
+  const toggleDeactivation = () => {
+    setDeactivationOpened((deactivationOpened) => !deactivationOpened);
+  };
+
   return (
     <Container maxWidth="sm" css={SettingsWrapper}>
       <Paper elevation={9} css={EngineerWrapper}>
@@ -27,9 +33,15 @@ const Settings: FC = () => {
           </Stack>
         </Stack>
       </Paper>
-      <Button variant="contained" color="error" size="large" fullWidth>
+      <Button
+        variant="contained"
+        color="error"
+        size="large"
+        fullWidth
+        onClick={toggleDeactivation}>
         Deactivate emitter
       </Button>
+      <DeactivateModal open={isDeactivationOpened} onClose={toggleDeactivation} />
     </Container>
   );
 };

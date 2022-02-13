@@ -5,3 +5,5 @@ export interface TableRowData {
   value: number | string | ReactNode | null;
   highlighted?: boolean;
 }
+
+export * from './functions';
