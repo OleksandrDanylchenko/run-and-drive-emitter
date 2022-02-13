@@ -1,5 +1,7 @@
 import { useLocation } from '@hooks/useLocation';
 import ExploreIcon from '@mui/icons-material/Explore';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -22,6 +24,17 @@ const LocationCard: FC = () => {
 
   const [location, locationError] = useLocation();
 
+  console.log(location, locationError);
+
+  if (locationError) {
+    return (
+      <Alert variant="filled" severity="error">
+        <AlertTitle>Location Error</AlertTitle>
+        Code: {locationError.code} <br />
+        {locationError.message}
+      </Alert>
+    );
+  }
   return (
     <Card>
       <CardHeader
