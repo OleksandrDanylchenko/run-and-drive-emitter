@@ -24,8 +24,6 @@ const LocationCard: FC = () => {
 
   const [location, locationError] = useLocation();
 
-  console.log(location, locationError);
-
   if (locationError) {
     return (
       <Alert variant="filled" severity="error">
