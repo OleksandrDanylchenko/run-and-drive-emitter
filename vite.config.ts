@@ -53,6 +53,7 @@ export default defineConfig({
       '@navigation': path.resolve(__dirname, './src/navigation'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@components': path.resolve(__dirname, './src/components'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
       '@styles': path.resolve(__dirname, './src/styles'),
     },
   },
