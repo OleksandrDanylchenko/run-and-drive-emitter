@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import React, { FC, useMemo } from 'react';
 
-import { LocationTable as LocationTableStyles, LocationTableRow } from './styles';
+import { LocationTableRow } from './styles';
 
 interface LocationTableProps {
   location: GeolocationCoordinates;
@@ -47,7 +47,7 @@ const LocationTable: FC<LocationTableProps> = ({ location }) => {
   );
 
   return (
-    <TableContainer css={LocationTableStyles}>
+    <TableContainer>
       <Table aria-label="Location table">
         <TableBody>
           {tableRows
