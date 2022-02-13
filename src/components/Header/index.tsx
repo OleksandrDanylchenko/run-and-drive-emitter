@@ -17,9 +17,11 @@ const Header = forwardRef<HTMLHeadingElement>((_, ref) => {
       <Toolbar css={HeaderToolbar}>
         <ScrollToTop css={HeaderButtonWrapper}>
           <Button
+            component={Link}
             size="large"
             startIcon={<SettingsInputAntennaIcon />}
-            css={HeaderButton}>
+            css={HeaderButton}
+            to="/">
             Emitter
           </Button>
         </ScrollToTop>
