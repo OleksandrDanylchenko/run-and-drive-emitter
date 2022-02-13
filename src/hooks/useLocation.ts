@@ -8,7 +8,7 @@ interface LocationOptions {
 }
 
 export const useLocation = (
-  options: LocationOptions,
+  options?: LocationOptions,
 ): [coords: GeolocationCoordinates | null, error: GeolocationPositionError | null] => {
   const [coords, setCoords] = useState<GeolocationCoordinates | null>(null);
   const [error, setError] = useState<GeolocationPositionError | null>(null);
@@ -21,7 +21,7 @@ export const useLocation = (
       const now = Date.now();
       const { current: lastCall } = lastUpdateAtRef;
       const { current: timeoutId } = timeoutIdRef;
-      const { throttle } = options;
+      const { throttle } = options || {};
 
       // The previous deferred update isn't finished yet
       if (timeoutId) return;
@@ -50,7 +50,7 @@ export const useLocation = (
         timeoutIdRef.current = null;
       }, timeout);
     },
-    [options.throttle],
+    [options?.throttle],
   );
 
   const onError = (error: GeolocationPositionError) => setError(error);
