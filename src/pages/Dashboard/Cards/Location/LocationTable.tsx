@@ -7,39 +7,45 @@ import React, { FC, useMemo } from 'react';
 
 import { LocationTable as LocationTableStyles, LocationTableRow } from './styles';
 
-const LocationTable: FC = () => {
+interface LocationTableProps {
+  location: GeolocationCoordinates;
+}
+
+const LocationTable: FC<LocationTableProps> = ({ location }) => {
+  const { accuracy, latitude, longitude, altitude, speed, heading } = location;
+
   const tableRows = useMemo<
     {
       label: string;
-      value: number | string;
+      value: number | string | null;
       highlighted?: boolean;
     }[]
   >(
     () => [
       {
         label: 'Accuracy',
-        value: 326,
+        value: toMeters(accuracy),
         highlighted: true,
       },
       {
         label: 'Latitude',
-        value: 59,
+        value: latitude,
       },
       {
         label: 'Longitude',
-        value: 22,
+        value: longitude,
       },
       {
         label: 'Altitude',
-        value: 224,
+        value: toMeters(altitude),
       },
       {
         label: 'Speed',
-        value: 256,
+        value: toKmPerHour(speed),
       },
       {
         label: 'Heading',
-        value: 125,
+        value: heading,
       },
     ],
     [],
@@ -64,5 +70,11 @@ const LocationTable: FC = () => {
     </TableContainer>
   );
 };
+
+const toMeters = (meters: number | null) => (meters ? `~${meters.toFixed(1)}m.` : null);
+
+// https://youtu.be/ud27dGObAvU?t=262
+const toKmPerHour = (metersPerSecond: number | null) =>
+  metersPerSecond ? `~${metersPerSecond * 3.6}m.` : null;
 
 export default LocationTable;

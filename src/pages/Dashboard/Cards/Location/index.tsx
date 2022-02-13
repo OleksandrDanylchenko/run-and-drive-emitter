@@ -38,7 +38,11 @@ const LocationCard: FC = () => {
         css={LocationCardHeader}
       />
       <CardContent>
-        {location ? <LocationTable /> : <Skeleton variant="rectangular" height={300} />}
+        {location ? (
+          <LocationTable location={location} />
+        ) : (
+          <Skeleton variant="rectangular" height={300} />
+        )}
       </CardContent>
       <Collapse in={isShowMap} timeout="auto" unmountOnExit>
         <CardContent>
