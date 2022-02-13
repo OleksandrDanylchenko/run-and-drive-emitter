@@ -5,8 +5,7 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import React, { FC } from 'react';
 
-import IndicatorsCard from './Sections/Indicators';
-import LocationCard from './Sections/Location';
+import { CharacteristicsCard, IndicatorsCard, LocationCard } from './Sections';
 import { Sections } from './styles';
 
 const Dashboard: FC = () => {
@@ -20,6 +19,7 @@ const Dashboard: FC = () => {
         <Stack spacing={3} css={Sections}>
           <LocationCard />
           <IndicatorsCard />
+          <CharacteristicsCard />
         </Stack>
       </Container>
     </>
