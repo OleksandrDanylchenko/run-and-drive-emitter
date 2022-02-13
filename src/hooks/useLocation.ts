@@ -67,7 +67,12 @@ export const useLocation = (
       });
       return;
     }
-    const watcher = geo.watchPosition(onChange, onError, options);
+    const watcher = geo.watchPosition(onChange, onError, {
+      enableHighAccuracy: true,
+      timeout: 100000,
+      maximumAge: 90000,
+      ...options,
+    });
     return () => geo.clearWatch(watcher);
   }, [onChange, options]);
 
