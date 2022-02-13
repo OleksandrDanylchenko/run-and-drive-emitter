@@ -11,10 +11,10 @@ import Collapse from '@mui/material/Collapse';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { LocationCardHeader } from '@pages/Dashboard/Cards/Location/styles';
 import React, { FC, useState } from 'react';
 
 import LocationTable from './LocationTable';
+import { LocationCardHeader } from './styles';
 
 const LocationCard: FC = () => {
   const [isShowMap, setShowMap] = useState(false);

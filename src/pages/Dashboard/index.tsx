@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
-import LocationCard from '@pages/Dashboard/Cards/Location';
+import LocationCard from '@pages/Dashboard/Sections/Location';
 import React, { FC } from 'react';
 
 import { AppButton, AppButtonWrapper, AppToolbar, CardsList } from './styles';
