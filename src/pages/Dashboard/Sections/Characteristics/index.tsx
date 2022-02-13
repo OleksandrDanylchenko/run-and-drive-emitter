@@ -1,23 +1,21 @@
-import CarRepairIcon from '@mui/icons-material/CarRepair';
+import { CardMedia } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import CharacteristicsTable from '@pages/Dashboard/Sections/Characteristics/CharacteristicsTable';
 import React, { FC } from 'react';
 
 const CharacteristicsCard: FC = () => {
   return (
     <Card>
-      <CardHeader
-        title={
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="h5">Characteristics</Typography>
-            <CarRepairIcon />
-          </Stack>
-        }
+      <CardMedia
+        component="img"
+        height="195"
+        image="https://upload.wikimedia.org/wikipedia/commons/a/a9/2017_Alfa_Romeo_Giulia_V6_Biturbo_Quadrifoglio_2.9.jpg"
+        alt="Alfa Romeo Giulia"
       />
-      <CardContent></CardContent>
+      <CardContent>
+        <CharacteristicsTable />
+      </CardContent>
     </Card>
   );
 };

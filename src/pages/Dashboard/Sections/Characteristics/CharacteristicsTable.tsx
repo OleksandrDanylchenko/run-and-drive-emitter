@@ -1,41 +1,41 @@
 import { TableRowData } from '@models/index';
-import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import { PressureRow } from '@pages/Dashboard/Sections/Indicators/styles';
 import React, { FC, useMemo } from 'react';
 
-const IndicatorsTable: FC = () => {
+const CharacteristicsTable: FC = () => {
   const tableRows = useMemo<TableRowData[]>(
     () => [
       {
-        label: 'Fuel tank occupancy',
-        value: '2L. (47%)',
+        label: 'VIN',
+        value: '4Y1SL65848Z411439',
       },
       {
-        label: 'Washing liquid occupancy',
-        value: '300ml. (23%)',
+        label: 'Model',
+        value: 'Alfa Romeo Giulia',
       },
       {
-        label: 'Wheels pressure',
-        value: (
-          <Stack spacing={1}>
-            <Typography variant="body2" css={PressureRow}>
-              Front Left: 20 bar
-              <br />
-              Front Right: 2 bar
-            </Typography>
-            <Typography variant="body2" css={PressureRow}>
-              Rear Left: 2 bar
-              <br />
-              Rear Right: 20 bar
-            </Typography>
-          </Stack>
-        ),
+        label: 'Color',
+        value: 'Red',
+      },
+      {
+        label: 'Mileage',
+        value: '32663km.',
+      },
+      {
+        label: 'Engine capacity',
+        value: '2.0L.',
+      },
+      {
+        label: 'Fuel tank capacity',
+        value: '40L.',
+      },
+      {
+        label: 'Washing liquid capacity',
+        value: '500 ml.',
       },
     ],
     [],
@@ -43,7 +43,7 @@ const IndicatorsTable: FC = () => {
 
   return (
     <TableContainer>
-      <Table aria-label="Indicators table">
+      <Table aria-label="Characteristics table">
         <TableBody>
           {tableRows
             .filter(({ value }) => !!value)
@@ -59,4 +59,4 @@ const IndicatorsTable: FC = () => {
   );
 };
 
-export default IndicatorsTable;
+export default CharacteristicsTable;
