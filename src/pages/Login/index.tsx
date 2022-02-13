@@ -1,3 +1,4 @@
+import PasswordInput from '@components/PasswordInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
@@ -53,11 +54,6 @@ const Login: FC = () => {
     },
   });
 
-  const [isShowPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword((showPassword) => !showPassword);
-  };
-
   const [isLoading, onSubmit, error] = useMockLogin();
 
   return (
@@ -82,26 +78,10 @@ const Login: FC = () => {
             helperText={errors.login?.message}
             {...register('login', { required: true })}
           />
-          <TextField
-            label="Password"
-            type={isShowPassword ? 'text' : 'password'}
-            fullWidth
+          <PasswordInput
             margin="normal"
             error={!!errors.password}
             helperText={errors.password?.message}
-            autoComplete="current-password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={toggleShowPassword}
-                    edge="end">
-                    {isShowPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
             {...register('password', { required: true })}
           />
           <Stack direction="row" alignItems="center" justifyContent="end" spacing={2}>
