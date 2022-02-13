@@ -7,12 +7,12 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
+import LocationCard from '@pages/Dashboard/Cards/Location';
 import React, { FC } from 'react';
 
-import { AppButton, AppButtonWrapper, AppToolbar } from './styles';
+import { AppButton, AppButtonWrapper, AppToolbar, CardsList } from './styles';
 
 const Dashboard: FC = () => {
   return (
@@ -42,19 +42,8 @@ const Dashboard: FC = () => {
       </HideOnScroll>
       <Toolbar id="back-to-top-anchor" />
       <Container maxWidth="sm">
-        <Stack spacing={1}>
-          <Skeleton variant="text" />
-          <Skeleton variant="circular" width={40} height={40} />
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="circular" width={40} height={40} />
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="circular" width={40} height={40} />
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="circular" width={40} height={40} />
-          <Skeleton variant="rectangular" width={210} height={118} />
-          <Skeleton variant="circular" width={40} height={40} />
-          <Skeleton variant="rectangular" width={210} height={118} />
-          <Skeleton variant="circular" width={40} height={40} />
+        <Stack spacing={1} css={CardsList}>
+          <LocationCard />
         </Stack>
       </Container>
     </>

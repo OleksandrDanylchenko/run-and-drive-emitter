@@ -15,3 +15,8 @@ export const AppButton = css`
   color: inherit;
   text-transform: none;
 `;
+
+export const CardsList = css`
+  padding-top: ${pxToRem('15px')};
+  padding-bottom: ${pxToRem('15px')};
+`;
