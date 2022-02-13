@@ -1,4 +1,4 @@
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import SupportIcon from '@mui/icons-material/Support';
 import AppBar from '@mui/material/AppBar';
@@ -9,23 +9,26 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import React, { FC } from 'react';
 
-import { AppButton, AppButtonWrapper } from './styles';
+import { AppButton, AppButtonWrapper, AppToolbar } from './styles';
 
 const Dashboard: FC = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar css={AppToolbar}>
           <Box css={AppButtonWrapper}>
-            <Button startIcon={<SettingsInputAntennaIcon />} css={AppButton}>
+            <Button size="large" startIcon={<SettingsInputAntennaIcon />} css={AppButton}>
               Emitter
             </Button>
           </Box>
-          <IconButton aria-label="Contact support" color="inherit">
+          <IconButton size="large" aria-label="Contact support" color="inherit">
             <SupportIcon />
           </IconButton>
-          <IconButton edge="end" aria-label="Activation engineer account" color="inherit">
-            <AccountCircle />
+          <IconButton
+            size="large"
+            aria-label="Activation engineer account"
+            color="inherit">
+            <SettingsIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
