@@ -36,6 +36,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          marginTop: '8px',
+          marginBottom: '8px',
+        },
+      },
+    },
   },
 });
 

@@ -9,11 +9,6 @@ export const LoginWrapper = css`
 `;
 
 export const FormWrapper = css`
-  ${flexbox({
-    direction: 'column',
-    gap: pxToRem('15px'),
-  })}
-
   padding: ${pxToRem('20px')};
 `;
 

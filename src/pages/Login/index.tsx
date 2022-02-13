@@ -1,6 +1,5 @@
 import PasswordInput from '@components/PasswordInput';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -10,18 +9,16 @@ import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Container from '@mui/material/Container';
 import Fade from '@mui/material/Fade';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useMockLogin } from '@pages/Login/useMockLogin';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { isEmpty } from '../../utils';
+import { isEmpty, loginSchema, passwordSchema } from '../../utils';
 import { Form, FormWrapper, LoginWrapper, Title } from './styles';
 
 export interface LoginForm {
@@ -30,13 +27,7 @@ export interface LoginForm {
 }
 
 const loginFormSchema = yup
-  .object({
-    login: yup.string().length(6, 'Login should contain 6 characters').required(),
-    password: yup
-      .string()
-      .min(8, 'Password should container at least 8 characters')
-      .required(),
-  })
+  .object({ login: loginSchema, password: passwordSchema })
   .required();
 
 const Login: FC = () => {
@@ -84,6 +75,12 @@ const Login: FC = () => {
             helperText={errors.password?.message}
             {...register('password', { required: true })}
           />
+          <Collapse in={!!error}>
+            <Alert severity="error">
+              <AlertTitle>Authentication failed</AlertTitle>
+              {error}
+            </Alert>
+          </Collapse>
           <Stack direction="row" alignItems="center" justifyContent="end" spacing={2}>
             <Fade in={isDirty && !isLoading}>
               <Button onClick={() => reset()}>Reset</Button>
@@ -99,12 +96,6 @@ const Login: FC = () => {
             </LoadingButton>
           </Stack>
         </form>
-        <Collapse in={!!error}>
-          <Alert severity="error">
-            <AlertTitle>Authentication failed</AlertTitle>
-            {error}
-          </Alert>
-        </Collapse>
       </Paper>
     </Container>
   );
