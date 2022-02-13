@@ -28,6 +28,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended', // Make sure this is always the last element in the array.
   ],
   plugins: ['simple-import-sort', 'prettier'],
@@ -40,6 +41,10 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
