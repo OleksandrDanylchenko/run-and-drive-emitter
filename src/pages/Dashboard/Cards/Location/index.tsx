@@ -1,11 +1,15 @@
+import { useLocation } from '@hooks/useLocation';
 import ExploreIcon from '@mui/icons-material/Explore';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import Collapse from '@mui/material/Collapse';
+import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { LocationCardHeader } from '@pages/Dashboard/Cards/Location/styles';
 import React, { FC, useState } from 'react';
 
 import LocationTable from './LocationTable';
@@ -16,14 +20,25 @@ const LocationCard: FC = () => {
     setShowMap((showMap) => !showMap);
   };
 
+  const [location, locationError] = useLocation();
+
   return (
     <Card>
+      <CardHeader
+        title={
+          location ? (
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Typography variant="h5">Location</Typography>
+              <ExploreIcon />
+            </Stack>
+          ) : (
+            <Skeleton width="80%" />
+          )
+        }
+        css={LocationCardHeader}
+      />
       <CardContent>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Typography variant="h5">Location</Typography>
-          <ExploreIcon />
-        </Stack>
-        <LocationTable />
+        {location ? <LocationTable /> : <Skeleton variant="rectangular" height={300} />}
       </CardContent>
       <Collapse in={isShowMap} timeout="auto" unmountOnExit>
         <CardContent>
@@ -33,9 +48,13 @@ const LocationCard: FC = () => {
         </CardContent>
       </Collapse>
       <CardActions disableSpacing sx={{ justifyContent: 'end' }}>
-        <Button size="small" onClick={toggleMapShow}>
-          {isShowMap ? 'Hide map' : 'Show on map'}
-        </Button>
+        {location ? (
+          <Button size="small" onClick={toggleMapShow}>
+            {isShowMap ? 'Hide map' : 'Show on map'}
+          </Button>
+        ) : (
+          <Skeleton width="40%" />
+        )}
       </CardActions>
     </Card>
   );
