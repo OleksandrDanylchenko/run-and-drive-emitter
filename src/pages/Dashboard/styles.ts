@@ -17,6 +17,6 @@ export const AppButton = css`
 `;
 
 export const CardsList = css`
-  padding-top: ${pxToRem('15px')};
-  padding-bottom: ${pxToRem('15px')};
+  margin-top: ${pxToRem('15px')};
+  margin-bottom: ${pxToRem('15px')};
 `;

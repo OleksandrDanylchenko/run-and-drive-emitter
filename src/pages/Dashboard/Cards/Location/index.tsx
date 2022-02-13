@@ -1,8 +1,10 @@
+import ExploreIcon from '@mui/icons-material/Explore';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Collapse from '@mui/material/Collapse';
+import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,9 +25,10 @@ const LocationCard: FC = () => {
   return (
     <Card>
       <CardContent>
-        <Typography gutterBottom variant="h5">
-          Location
-        </Typography>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography variant="h5">Location</Typography>
+          <ExploreIcon />
+        </Stack>
         <TableContainer css={LocationTable}>
           <Table aria-label="Location table">
             <TableHead>
