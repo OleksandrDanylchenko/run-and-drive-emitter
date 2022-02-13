@@ -17,7 +17,7 @@ const Dashboard: FC = () => {
       </HideOnScroll>
       <Toolbar id="back-to-top-anchor" />
       <Container maxWidth="sm">
-        <Stack spacing={1} css={Sections}>
+        <Stack spacing={3} css={Sections}>
           <LocationCard />
           <IndicatorsCard />
         </Stack>
