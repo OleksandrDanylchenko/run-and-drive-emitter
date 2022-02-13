@@ -6,13 +6,13 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
 
 import { HeaderButton, HeaderButtonWrapper, HeaderToolbar } from './styles';
 
-const Header: FC = () => {
+const Header = forwardRef<HTMLHeadingElement>((_, ref) => {
   return (
-    <AppBar>
+    <AppBar ref={ref}>
       <Toolbar css={HeaderToolbar}>
         <ScrollToTop css={HeaderButtonWrapper}>
           <Button
@@ -31,6 +31,8 @@ const Header: FC = () => {
       </Toolbar>
     </AppBar>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header;
