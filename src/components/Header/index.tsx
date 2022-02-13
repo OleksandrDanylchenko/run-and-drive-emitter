@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import React, { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import { HeaderButton, HeaderButtonWrapper, HeaderToolbar } from './styles';
 
@@ -25,7 +26,12 @@ const Header = forwardRef<HTMLHeadingElement>((_, ref) => {
         <IconButton size="large" aria-label="Contact support" color="inherit">
           <SupportIcon />
         </IconButton>
-        <IconButton size="large" aria-label="Activation engineer account" color="inherit">
+        <IconButton
+          component={Link}
+          size="large"
+          aria-label="Activation engineer account"
+          color="inherit"
+          to="settings">
           <SettingsIcon />
         </IconButton>
       </Toolbar>

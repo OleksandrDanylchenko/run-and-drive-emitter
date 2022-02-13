@@ -1,13 +1,14 @@
 import Dashboard from '@pages/Dashboard';
 import Login from '@pages/Login';
-import React from 'react';
-import { FC } from 'react';
+import Settings from '@pages/Settings';
+import React, { FC } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const Routing: FC = () => (
   <BrowserRouter>
     <Routes>
       <Route path={'/login'} element={<Login />} />
+      <Route path={'/settings'} element={<Settings />} />
       <Route path={'/'} element={<Dashboard />} />
       <Route element={<Navigate to="/" />} />
     </Routes>
