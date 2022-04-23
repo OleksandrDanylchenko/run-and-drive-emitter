@@ -17,6 +17,8 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
+    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+    {/*@ts-ignore*/}
     <Provider store={store}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
