@@ -9,10 +9,13 @@ import Routing from '@navigation/Routing';
 import { store } from '@redux/store';
 import theme from '@styles/theme';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-ReactDOM.render(
+const container = document.getElementById('root') as HTMLDivElement;
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <StyledEngineProvider injectFirst>
@@ -23,5 +26,4 @@ ReactDOM.render(
       </StyledEngineProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
