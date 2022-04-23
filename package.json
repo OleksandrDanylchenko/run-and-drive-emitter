@@ -24,6 +24,7 @@
     "react-hook-form": "^7.27.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "6",
+    "run-and-drive-lib": "^0.2.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -48,9 +49,6 @@
     "vite-plugin-pwa": "^0.11.13",
     "vite-tsconfig-paths": "^3.4.0",
     "workbox-window": "^6.4.2"
-  },
-  "resolutions": {
-    "@types/react": "17.0.44"
   },
   "pre-push": "lint",
   "license": "MIT"
