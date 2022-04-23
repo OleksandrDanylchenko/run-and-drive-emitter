@@ -24,7 +24,7 @@
     "react-hook-form": "^7.27.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "6",
-    "run-and-drive-lib": "^0.2.0",
+    "run-and-drive-lib": "^0.2.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

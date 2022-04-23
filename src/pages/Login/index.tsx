@@ -1,4 +1,3 @@
-import PasswordInput from '@components/PasswordInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -16,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import { useMockLogin } from '@pages/Login/useMockLogin';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { PasswordInput } from 'run-and-drive-lib';
 import * as yup from 'yup';
 
 import { isEmpty, loginSchema, passwordSchema } from '../../utils';

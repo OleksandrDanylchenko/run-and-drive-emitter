@@ -1,4 +1,3 @@
-import PasswordInput from '@components/PasswordInput';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import CancelIcon from '@mui/icons-material/Cancel';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -17,7 +16,7 @@ import { isEmpty } from '@utils/index';
 import { passwordSchema } from '@utils/validation';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { BindingAction } from 'run-and-drive-lib/dist/models/functions';
+import { BindingAction, PasswordInput } from 'run-and-drive-lib';
 import * as yup from 'yup';
 
 interface DeactivateModalProps {
