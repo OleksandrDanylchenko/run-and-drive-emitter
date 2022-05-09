@@ -7,9 +7,17 @@ import {
   FetchArgs,
   fetchBaseQuery,
   FetchBaseQueryError,
-} from '@reduxjs/toolkit/query';
+} from '@reduxjs/toolkit/query/react';
 
-const baseQuery = fetchBaseQuery({
+const publicBaseQuery = fetchBaseQuery({ baseUrl: API_HOST });
+
+export const publicEmitterApi = createApi({
+  reducerPath: 'publicEmitterApi',
+  baseQuery: publicBaseQuery,
+  endpoints: () => ({}),
+});
+
+const bearerBaseQuery = fetchBaseQuery({
   baseUrl: API_HOST,
   prepareHeaders: (headers, { getState }) => {
     const { authData } = (getState() as RootState).authentication;
@@ -19,8 +27,7 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
-
-export const baseQueryWithAuthCheck: BaseQueryFn<
+const protectedBaseQuery: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
@@ -34,18 +41,11 @@ export const baseQueryWithAuthCheck: BaseQueryFn<
     );
     history.replace('/error/token-missing');
   }
-
-  return baseQuery(args, api, extraOptions);
+  return bearerBaseQuery(args, api, extraOptions);
 };
-
-export const publicEmitterApi = createApi({
-  reducerPath: 'publicEmitterApi',
-  baseQuery,
-  endpoints: () => ({}),
-});
 
 export const protectedEmitterApi = createApi({
   reducerPath: 'protectedEmitterApi',
-  baseQuery: baseQueryWithAuthCheck,
+  baseQuery: protectedBaseQuery,
   endpoints: () => ({}),
 });
