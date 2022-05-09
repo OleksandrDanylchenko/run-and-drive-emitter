@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { RegisterPayload } from '@models/api';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -12,30 +13,25 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useMockLogin } from '@pages/Register/useMockLogin';
-import React, { FC } from 'react';
+import { history } from '@navigation/Routing';
+import { useRegisterMutation } from '@redux/queries/authentication';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { PasswordInput } from 'run-and-drive-lib/components';
 import * as yup from 'yup';
 
 import {
-  activationCarCodeSchema,
   activationLoginSchema,
+  carActivationCodeSchema,
   isEmpty,
   passwordSchema,
 } from '../../utils';
 import { Form, FormWrapper, LoginWrapper, Title } from './styles';
 
-export interface RegisterForm {
-  activationLogin: string;
-  activationCarCode: string;
-  password: string;
-}
-
 const registerFormSchema = yup
   .object({
     activationLogin: activationLoginSchema,
-    activationCarCode: activationCarCodeSchema,
+    carActivationCode: carActivationCodeSchema,
     password: passwordSchema,
   })
   .required();
@@ -44,19 +40,31 @@ const Register: FC = () => {
   const {
     register,
     handleSubmit,
-    reset,
+    reset: resetForm,
     formState: { errors, isDirty },
-  } = useForm<RegisterForm>({
+  } = useForm<RegisterPayload>({
     mode: 'onBlur',
     resolver: yupResolver(registerFormSchema),
     defaultValues: {
       activationLogin: '',
-      activationCarCode: '',
+      carActivationCode: '',
       password: '',
     },
   });
 
-  const [isLoading, onSubmit, error] = useMockLogin();
+  const [registerEmitter, { isLoading, isSuccess, error, reset: resetRegister }] =
+    useRegisterMutation();
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    history.replace('/');
+  }, [isSuccess]);
+
+  const handleReset = () => {
+    resetForm();
+    resetRegister();
+  };
 
   return (
     <Container maxWidth="sm" css={LoginWrapper}>
@@ -84,9 +92,9 @@ const Register: FC = () => {
             label="Car code"
             fullWidth
             margin="normal"
-            error={!!errors.activationCarCode}
-            helperText={errors.activationCarCode?.message}
-            {...register('activationCarCode', { required: true })}
+            error={!!errors.carActivationCode}
+            helperText={errors.carActivationCode?.message}
+            {...register('carActivationCode', { required: true })}
           />
           <PasswordInput
             margin="normal"
@@ -96,13 +104,25 @@ const Register: FC = () => {
           />
           <Collapse in={!!error}>
             <Alert severity="error">
-              <AlertTitle>Authentication failed</AlertTitle>
-              {error}
+              <>
+                <AlertTitle>Authentication failed</AlertTitle>
+                {error && (
+                  <>
+                    {'status' in error ? (
+                      <>
+                        {error.status} {JSON.stringify(error.data)}
+                      </>
+                    ) : (
+                      error.message
+                    )}
+                  </>
+                )}
+              </>
             </Alert>
           </Collapse>
           <Stack direction="row" alignItems="center" justifyContent="end" spacing={2}>
             <Fade in={isDirty && !isLoading}>
-              <Button onClick={() => reset()}>Reset</Button>
+              <Button onClick={handleReset}>Reset</Button>
             </Fade>
             <LoadingButton
               variant="contained"
@@ -110,7 +130,7 @@ const Register: FC = () => {
               disabled={!isEmpty(errors)}
               loading={isLoading}
               loadingPosition="end"
-              onClick={handleSubmit(onSubmit)}>
+              onClick={handleSubmit(registerEmitter)}>
               Sign In
             </LoadingButton>
           </Stack>

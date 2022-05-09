@@ -1,3 +1,4 @@
+import { authenticationApi } from '@redux/queries/authentication';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface EmitterAuthData {
@@ -23,6 +24,14 @@ const authenticationSlice = createSlice({
     setAuthData: (state, action: PayloadAction<EmitterAuthData>) => {
       state.authData = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authenticationApi.endpoints.register.matchFulfilled,
+      (state, { payload }) => {
+        state.authData = payload;
+      },
+    );
   },
 });
 

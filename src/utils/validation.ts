@@ -5,7 +5,7 @@ export const activationLoginSchema = yup
   .length(8, 'Login should contain 8 characters')
   .required();
 
-export const activationCarCodeSchema = yup
+export const carActivationCodeSchema = yup
   .string()
   .length(8, 'Car code should contain 8 characters')
   .required();
