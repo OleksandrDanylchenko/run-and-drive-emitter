@@ -8,7 +8,7 @@ interface DeactivateModalProps {
 
 // const deactivateSchema = yup.object({ password: passwordSchema }).required();
 
-const DeactivateModal: FC<DeactivateModalProps> = ({ open, onClose }) => {
+const DeactivateModal: FC<DeactivateModalProps> = () => {
   return <h2>Hello!</h2>;
 
   // const {

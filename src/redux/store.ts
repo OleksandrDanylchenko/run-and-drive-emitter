@@ -18,7 +18,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { rtkQueryErrorLogger } from 'run-and-drive-lib/redux';
 
-import authenticationReducer from './slices/authenticationSlice';
+import authenticationReducer from './slices/authentication_slice';
 
 const reducers = combineReducers({
   authentication: authenticationReducer,

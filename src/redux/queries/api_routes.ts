@@ -1,5 +1,5 @@
 export const API = {
-  REGISTER: `/emitter/register`,
-  UNREGISTER: `/emitter/unregister`,
-  ACTIVE_TRIP: `/emitter/active-trip`,
+  REGISTER: `/emitters/register`,
+  UNREGISTER: `/emitters/unregister`,
+  ACTIVE_TRIP: `/emitters/active-trip`,
 };
