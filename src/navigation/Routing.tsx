@@ -2,7 +2,8 @@ import Dashboard from '@pages/Dashboard';
 import Home from '@pages/Home';
 import Register from '@pages/Register';
 import Settings from '@pages/Settings';
-import React, { FC } from 'react';
+import { createBrowserHistory } from 'history';
+import { FC } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const Routing: FC = () => (
@@ -17,5 +18,7 @@ const Routing: FC = () => (
     </Routes>
   </BrowserRouter>
 );
+
+export const history = createBrowserHistory();
 
 export default Routing;

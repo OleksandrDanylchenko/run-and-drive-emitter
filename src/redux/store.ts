@@ -1,3 +1,4 @@
+import { protectedEmitterApi, publicEmitterApi } from '@redux/queries';
 import {
   AnyAction,
   combineReducers,
@@ -21,6 +22,8 @@ import authenticationReducer from './slices/authenticationSlice';
 
 const reducers = combineReducers({
   authentication: authenticationReducer,
+  [publicEmitterApi.reducerPath]: publicEmitterApi.reducer,
+  [protectedEmitterApi.reducerPath]: protectedEmitterApi.reducer,
 });
 
 const persistedReducer = persistReducer(
