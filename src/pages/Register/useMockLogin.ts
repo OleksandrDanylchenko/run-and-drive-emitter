@@ -1,4 +1,4 @@
-import { LoginForm } from '@pages/Login/index';
+import { RegisterForm } from '@pages/Register/index';
 import { useState } from 'react';
 
 const defaultErrors = 'Login is banned in the system';
@@ -7,7 +7,7 @@ export const useMockLogin = (): [isLoading: boolean, onSubmit: any, error: any] 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = (form: LoginForm) => {
+  const onSubmit = (form: RegisterForm) => {
     console.log(form);
 
     setIsLoading(true);

@@ -12,35 +12,46 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useMockLogin } from '@pages/Login/useMockLogin';
+import { useMockLogin } from '@pages/Register/useMockLogin';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { PasswordInput } from 'run-and-drive-lib';
+import { PasswordInput } from 'run-and-drive-lib/components';
 import * as yup from 'yup';
 
-import { isEmpty, loginSchema, passwordSchema } from '../../utils';
+import {
+  activationCarCodeSchema,
+  activationLoginSchema,
+  isEmpty,
+  passwordSchema,
+} from '../../utils';
 import { Form, FormWrapper, LoginWrapper, Title } from './styles';
 
-export interface LoginForm {
-  login: string;
+export interface RegisterForm {
+  activationLogin: string;
+  activationCarCode: string;
   password: string;
 }
 
-const loginFormSchema = yup
-  .object({ login: loginSchema, password: passwordSchema })
+const registerFormSchema = yup
+  .object({
+    activationLogin: activationLoginSchema,
+    activationCarCode: activationCarCodeSchema,
+    password: passwordSchema,
+  })
   .required();
 
-const Login: FC = () => {
+const Register: FC = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isDirty },
-  } = useForm<LoginForm>({
+  } = useForm<RegisterForm>({
     mode: 'onBlur',
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(registerFormSchema),
     defaultValues: {
-      login: '',
+      activationLogin: '',
+      activationCarCode: '',
       password: '',
     },
   });
@@ -65,9 +76,17 @@ const Login: FC = () => {
             label="Activation login"
             fullWidth
             margin="normal"
-            error={!!errors.login}
-            helperText={errors.login?.message}
-            {...register('login', { required: true })}
+            error={!!errors.activationLogin}
+            helperText={errors.activationLogin?.message}
+            {...register('activationLogin', { required: true })}
+          />
+          <TextField
+            label="Car code"
+            fullWidth
+            margin="normal"
+            error={!!errors.activationCarCode}
+            helperText={errors.activationCarCode?.message}
+            {...register('activationCarCode', { required: true })}
           />
           <PasswordInput
             margin="normal"
@@ -101,4 +120,4 @@ const Login: FC = () => {
   );
 };
 
-export default Login;
+export default Register;

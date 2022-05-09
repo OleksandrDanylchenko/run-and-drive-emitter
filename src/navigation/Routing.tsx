@@ -1,6 +1,6 @@
 import Dashboard from '@pages/Dashboard';
 import Home from '@pages/Home';
-import Login from '@pages/Login';
+import Register from '@pages/Register';
 import Settings from '@pages/Settings';
 import React, { FC } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 const Routing: FC = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/" element={<Home />}>
         <Route index element={<Dashboard />} />
         <Route path="settings" element={<Settings />} />

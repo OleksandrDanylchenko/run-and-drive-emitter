@@ -1,8 +1,13 @@
 import * as yup from 'yup';
 
-export const loginSchema = yup
+export const activationLoginSchema = yup
   .string()
-  .length(6, 'Login should contain 6 characters')
+  .length(8, 'Login should contain 8 characters')
+  .required();
+
+export const activationCarCodeSchema = yup
+  .string()
+  .length(8, 'Car code should contain 8 characters')
   .required();
 
 export const passwordSchema = yup

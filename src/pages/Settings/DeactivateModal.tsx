@@ -10,13 +10,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { LoginForm } from '@pages/Login';
-import { useMockLogin } from '@pages/Login/useMockLogin';
+import { RegisterForm } from '@pages/Register';
+import { useMockLogin } from '@pages/Register/useMockLogin';
 import { isEmpty } from '@utils/index';
 import { passwordSchema } from '@utils/validation';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { BindingAction, PasswordInput } from 'run-and-drive-lib';
+import { PasswordInput } from 'run-and-drive-lib/components';
+import { BindingAction } from 'run-and-drive-lib/models';
 import * as yup from 'yup';
 
 interface DeactivateModalProps {
@@ -32,7 +33,7 @@ const DeactivateModal: FC<DeactivateModalProps> = ({ open, onClose }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<LoginForm>({
+  } = useForm<RegisterForm>({
     mode: 'onBlur',
     resolver: yupResolver(deactivateSchema),
     defaultValues: {

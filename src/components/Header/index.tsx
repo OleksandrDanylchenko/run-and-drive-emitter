@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ScrollToTop } from 'run-and-drive-lib';
+import { ScrollToTop } from 'run-and-drive-lib/components';
 
 import { HeaderButton, HeaderButtonWrapper, HeaderToolbar } from './styles';
 
