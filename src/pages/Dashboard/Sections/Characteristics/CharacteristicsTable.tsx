@@ -5,43 +5,49 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
+import { Car } from 'run-and-drive-lib/models';
+import { capitalizeFirstLetter } from 'run-and-drive-lib/utils';
 
 import { TableRowData } from '@models/index';
 
-const CharacteristicsTable: FC = () => {
-  const tableRows = useMemo<TableRowData[]>(
-    () => [
+interface Props {
+  car: Car;
+}
+
+const CharacteristicsTable: FC<Props> = ({ car }) => {
+  const tableRows = useMemo<TableRowData[]>(() => {
+    const { vin, brand, model, color, year, mileage, engineCapacity, fuelCapacity } = car;
+    return [
       {
         label: 'VIN',
-        value: '4Y1SL65848Z411439',
+        value: vin,
       },
       {
         label: 'Model',
-        value: 'Alfa Romeo Giulia',
+        value: `${brand} ${model}`,
+      },
+      {
+        label: 'Year',
+        value: year,
       },
       {
         label: 'Color',
-        value: 'Red',
+        value: capitalizeFirstLetter(color),
       },
       {
         label: 'Mileage',
-        value: '32663km.',
+        value: `${mileage}km.`,
       },
       {
         label: 'Engine capacity',
-        value: '2.0L.',
+        value: `${engineCapacity}L.`,
       },
       {
         label: 'Fuel tank capacity',
-        value: '40L.',
+        value: `${fuelCapacity}L.`,
       },
-      {
-        label: 'Washing liquid capacity',
-        value: '500 ml.',
-      },
-    ],
-    [],
-  );
+    ];
+  }, [car]);
 
   return (
     <TableContainer>

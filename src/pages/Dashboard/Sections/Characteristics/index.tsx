@@ -50,7 +50,7 @@ const CharacteristicsCard: FC = () => {
         </CardMedia>
       )}
       <CardContent>
-        <CharacteristicsTable />
+        <CharacteristicsTable car={car} />
       </CardContent>
     </Card>
   );
