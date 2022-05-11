@@ -8,7 +8,9 @@ export const SettingsWrapper = (theme: Theme) => css`
     direction: 'column',
     justifyContent: 'space-between',
   })}
-  height: calc(100vh - ${theme.mixins.toolbar.minHeight}px - 15px)
+  height: calc(100vh - ${theme.mixins.toolbar.minHeight}px);
+  padding-top: 15px;
+  padding-bottom: 15px;
 `;
 
 export const EngineerWrapper = css`

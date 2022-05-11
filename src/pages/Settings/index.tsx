@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import DeactivateModal from '@pages/Settings/DeactivateModal';
+import EngineerCard from '@pages/Settings/Sections/Engineer';
 
 import { EngineerHeader, EngineerWrapper, SettingsWrapper } from './styles';
 
@@ -20,21 +20,7 @@ const Settings: FC = () => {
 
   return (
     <Container maxWidth="sm" css={SettingsWrapper}>
-      <Paper elevation={9} css={EngineerWrapper}>
-        <Stack spacing={2}>
-          <Typography variant="h4" css={EngineerHeader}>
-            Activation engineer:
-          </Typography>
-          <Stack direction="row" spacing={1}>
-            <AssignmentIndIcon />
-            <Typography>Oleksandr Danylchenko</Typography>
-          </Stack>
-          <Stack direction="row" spacing={1}>
-            <KeyIcon />
-            <Typography>eyweb3</Typography>
-          </Stack>
-        </Stack>
-      </Paper>
+      <EngineerCard />
       <Button
         variant="contained"
         color="error"
@@ -43,7 +29,7 @@ const Settings: FC = () => {
         onClick={toggleDeactivation}>
         Deactivate emitter
       </Button>
-      <DeactivateModal open={isDeactivationOpened} onClose={toggleDeactivation} />
+      {/*<DeactivateModal open={isDeactivationOpened} onClose={toggleDeactivation} />*/}
     </Container>
   );
 };
