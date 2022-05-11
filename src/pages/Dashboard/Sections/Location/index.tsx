@@ -35,7 +35,7 @@ const LocationCard: FC = () => {
     );
   }
   if (!location) {
-    return <LoadingCard title="location" fetching={!location} />;
+    return <LoadingCard title="location" fetching={!location} showActions />;
   }
   return (
     <Card>

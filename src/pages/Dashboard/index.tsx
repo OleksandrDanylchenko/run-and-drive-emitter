@@ -8,7 +8,12 @@ import { useAppSelector } from '@redux/hooks';
 import { carsApi } from '@redux/queries/cars';
 import { selectCarId } from '@redux/selectors/authentication_selectors';
 
-import { CharacteristicsCard, IndicatorsCard, LocationCard } from './Sections';
+import {
+  CharacteristicsCard,
+  IndicatorsCard,
+  LocationCard,
+  StatusCard,
+} from './Sections';
 import { Sections } from './styles';
 
 const TEN_MINUTES = 10 * 60;
@@ -22,6 +27,7 @@ const Dashboard: FC = () => {
   return (
     <Container maxWidth="sm">
       <Stack spacing={3} css={Sections}>
+        <StatusCard />
         <LocationCard />
         <IndicatorsCard />
         <CharacteristicsCard />
