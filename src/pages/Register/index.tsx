@@ -25,6 +25,7 @@ import { useRegisterMutation } from '@redux/queries/authentication';
 import {
   activationLoginSchema,
   carActivationCodeSchema,
+  getErrorMessage,
   isEmpty,
   passwordSchema,
 } from '../../utils';
@@ -69,14 +70,6 @@ const Register: FC = () => {
     resetRegister();
   };
 
-  const errorMessage = useMemo(() => {
-    if (!error) return null;
-    if (!('status' in error)) return error.message;
-
-    const messageData = error.data as { message: string };
-    return `${error.status} ${messageData.message}`;
-  }, [error]);
-
   return (
     <Container maxWidth="sm" css={LoginWrapper}>
       <Paper elevation={9} css={FormWrapper}>
@@ -117,7 +110,7 @@ const Register: FC = () => {
             <Alert severity="error">
               <>
                 <AlertTitle>Authentication failed</AlertTitle>
-                {errorMessage}
+                {getErrorMessage(error)}
               </>
             </Alert>
           </Collapse>

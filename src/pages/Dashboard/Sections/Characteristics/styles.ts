@@ -1,5 +1,3 @@
-import { css } from '@emotion/react';
+import { pxToRem } from 'run-and-drive-lib/styles';
 
-export const PressureRow = css`
-  white-space: nowrap;
-`;
+export const mediaHeight = pxToRem('195px');
