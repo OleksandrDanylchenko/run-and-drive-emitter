@@ -1,5 +1,6 @@
 import { FC, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
@@ -19,7 +20,6 @@ import { PasswordInput } from 'run-and-drive-lib/components';
 import * as yup from 'yup';
 
 import { RegisterPayload } from '@models/api';
-import history from '@navigation/history';
 import { useRegisterMutation } from '@redux/queries/authentication';
 
 import {
@@ -39,6 +39,8 @@ const registerFormSchema = yup
   .required();
 
 const Register: FC = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -59,9 +61,8 @@ const Register: FC = () => {
 
   useEffect(() => {
     if (!isSuccess) return;
-
-    history.replace('/');
-  }, [isSuccess]);
+    navigate('/', { replace: true });
+  }, [isSuccess, navigate]);
 
   const handleReset = () => {
     resetForm();

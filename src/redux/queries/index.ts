@@ -7,7 +7,6 @@ import {
 } from '@reduxjs/toolkit/query/react';
 
 import { API_HOST } from '@constants/index';
-import history from '@navigation/history';
 
 import type { RootState } from '@redux/store';
 
@@ -41,7 +40,7 @@ const protectedBaseQuery: BaseQueryFn<
       'Access token is missing!',
       `Failed on request to ${JSON.stringify(args, null, 2)}`,
     );
-    history.replace('/error/token-missing');
+    window.location.replace('/error/token-missing');
   }
   return bearerBaseQuery(args, api, extraOptions);
 };
