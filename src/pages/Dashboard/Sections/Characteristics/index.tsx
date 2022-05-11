@@ -22,7 +22,14 @@ const CharacteristicsCard: FC = () => {
 
   if (!car || isCarLoading || carError) {
     return (
-      <LoadingCard isFetching={!car || isCarLoading} error={carError} linesNumber={7} />
+      <LoadingCard
+        title="characteristics"
+        fetching={!car || isCarLoading}
+        error={carError}
+        linesNumber={7}
+        showMedia
+        showHeader={false}
+      />
     );
   }
 

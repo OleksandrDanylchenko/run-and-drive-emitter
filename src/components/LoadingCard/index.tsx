@@ -3,7 +3,9 @@ import React, { FC, ReactElement, useMemo } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import Skeleton from '@mui/material/Skeleton';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
@@ -13,34 +15,52 @@ import { mediaHeight } from '@pages/Dashboard/Sections/Characteristics/styles';
 import { getErrorMessage } from '@utils/index';
 
 interface Props {
+  title: string;
+  showHeader?: boolean;
   showMedia?: boolean;
+  showContent?: boolean;
+  showActions?: boolean;
   linesNumber?: number;
-  isFetching: boolean;
+  fetching: boolean;
   error?: FetchBaseQueryError | SerializedError;
 }
 
 const LoadingCard: FC<Props> = ({
-  showMedia = true,
+  title,
+  showHeader = true,
+  showMedia = false,
+  showContent = true,
+  showActions = false,
   linesNumber = 4,
-  isFetching,
+  fetching,
   error,
 }) => {
   const skeletonLines = useMemo(() => generateSkeletonLines(linesNumber), [linesNumber]);
 
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Cannot display the {title} card</AlertTitle>
+        {getErrorMessage(error)}
+      </Alert>
+    );
+  }
+  if (!fetching) return null;
+
   return (
     <Card>
-      {showMedia && isFetching && (
-        <Skeleton sx={{ height: mediaHeight }} variant="rectangular" />
+      {showHeader && <CardHeader title={<Skeleton width="80%" />} />}
+      {showMedia && <Skeleton sx={{ height: mediaHeight }} variant="rectangular" />}
+      {showContent && (
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          {fetching && skeletonLines}
+        </CardContent>
       )}
-      <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {isFetching && skeletonLines}
-        {error && (
-          <Alert severity="error">
-            <AlertTitle>Cannot display characteristics</AlertTitle>
-            {getErrorMessage(error)}
-          </Alert>
-        )}
-      </CardContent>
+      {showActions && (
+        <CardActions disableSpacing sx={{ justifyContent: 'end' }}>
+          <Skeleton width="40%" />
+        </CardActions>
+      )}
     </Card>
   );
 };

@@ -24,7 +24,12 @@ const IndicatorsCard: FC = () => {
 
   if (!car || isCarLoading || carError) {
     return (
-      <LoadingCard isFetching={!car || isCarLoading} error={carError} linesNumber={2} />
+      <LoadingCard
+        title="indicators"
+        fetching={!car || isCarLoading}
+        error={carError}
+        linesNumber={2}
+      />
     );
   }
 

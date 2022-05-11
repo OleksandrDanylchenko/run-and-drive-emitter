@@ -9,10 +9,10 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Collapse from '@mui/material/Collapse';
-import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+import LoadingCard from '@components/LoadingCard';
 import { useLocation } from '@hooks/useLocation';
 
 import LocationTable from './LocationTable';
@@ -34,26 +34,21 @@ const LocationCard: FC = () => {
       </Alert>
     );
   }
+  if (!location) {
+    return <LoadingCard title="location" fetching={!location} />;
+  }
   return (
     <Card>
       <CardHeader
         title={
-          location ? (
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography variant="h5">Location</Typography>
-              <ExploreIcon />
-            </Stack>
-          ) : (
-            <Skeleton width="80%" />
-          )
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant="h5">Location</Typography>
+            <ExploreIcon />
+          </Stack>
         }
       />
       <CardContent>
-        {location ? (
-          <LocationTable location={location} />
-        ) : (
-          <Skeleton variant="rectangular" height={300} />
-        )}
+        <LocationTable location={location} />
       </CardContent>
       <Collapse in={isShowMap} timeout="auto" unmountOnExit>
         <CardContent>
@@ -63,13 +58,9 @@ const LocationCard: FC = () => {
         </CardContent>
       </Collapse>
       <CardActions disableSpacing sx={{ justifyContent: 'end' }}>
-        {location ? (
-          <Button size="small" onClick={toggleMapShow}>
-            {isShowMap ? 'Hide map' : 'Show on map'}
-          </Button>
-        ) : (
-          <Skeleton width="40%" />
-        )}
+        <Button size="small" onClick={toggleMapShow}>
+          {isShowMap ? 'Hide map' : 'Show on map'}
+        </Button>
       </CardActions>
     </Card>
   );
