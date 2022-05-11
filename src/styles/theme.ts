@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
-const theme = createTheme({
+export const theme = createTheme({
   components: {
     MuiSkeleton: {
       defaultProps: {
@@ -46,5 +46,3 @@ const theme = createTheme({
     },
   },
 });
-
-export default theme;

@@ -12,7 +12,7 @@ import { CssBaseline, StyledEngineProvider } from '@mui/material';
 
 import Routing from '@navigation/Routing';
 import { store } from '@redux/store';
-import theme from '@styles/theme';
+import { theme } from '@styles/theme';
 
 const container = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(container);
