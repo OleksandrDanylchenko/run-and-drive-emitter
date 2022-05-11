@@ -17,13 +17,16 @@ import Typography from '@mui/material/Typography';
 import { useOnline } from 'run-and-drive-lib/hooks';
 import { capitalizeFirstLetter } from 'run-and-drive-lib/utils';
 
+import { useAppSelector } from '@redux/hooks';
 import { useGetActiveTripQuery } from '@redux/queries/trips';
+import { selectEmittingRateHuman } from '@redux/selectors/emitting_selectors';
 import { FIVE_SECONDS } from '@utils/time';
 
 const StatusCard: FC = () => {
   const isOnline = useOnline();
   const onlineStatus = isOnline ? 'Online' : 'Offline';
 
+  const emittingRateHuman = useAppSelector(selectEmittingRateHuman);
   const {
     data: activeTrip,
     isLoading,
@@ -68,8 +71,8 @@ const StatusCard: FC = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Emitting rate</TableCell>
-                <TableCell align="center">
-                  {capitalizeFirstLetter(onlineStatus)}
+                <TableCell align="center" css={(theme) => NetworkStyle(theme)}>
+                  {emittingRateHuman}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -90,7 +93,10 @@ const StatusCard: FC = () => {
   );
 };
 
-const NetworkStyle = (theme: Theme, options: { success: boolean; error: boolean }) => {
+const NetworkStyle = (
+  theme: Theme,
+  options: { success?: boolean; error?: boolean } = {},
+) => {
   const { success, error } = options;
   const {
     success: { main: successColor },
