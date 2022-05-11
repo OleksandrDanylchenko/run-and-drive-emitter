@@ -1,4 +1,5 @@
-import { useLocation } from '@hooks/useLocation';
+import React, { FC, useState } from 'react';
+
 import ExploreIcon from '@mui/icons-material/Explore';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -11,7 +12,8 @@ import Collapse from '@mui/material/Collapse';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import React, { FC, useState } from 'react';
+
+import { useLocation } from '@hooks/useLocation';
 
 import LocationTable from './LocationTable';
 

@@ -1,8 +1,10 @@
-import Header from '@components/Header';
-import Toolbar from '@mui/material/Toolbar';
 import React, { FC } from 'react';
 import { Outlet } from 'react-router-dom';
+
+import Toolbar from '@mui/material/Toolbar';
 import { HideOnScroll } from 'run-and-drive-lib/components';
+
+import Header from '@components/Header';
 
 const Home: FC = () => {
   return (

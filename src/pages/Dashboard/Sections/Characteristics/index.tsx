@@ -1,8 +1,10 @@
+import React, { FC } from 'react';
+
 import { CardMedia } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+
 import CharacteristicsTable from '@pages/Dashboard/Sections/Characteristics/CharacteristicsTable';
-import React, { FC } from 'react';
 
 const CharacteristicsCard: FC = () => {
   return (

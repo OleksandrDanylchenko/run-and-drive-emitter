@@ -1,5 +1,6 @@
-import { authenticationApi } from '@redux/queries/authentication';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { authenticationApi } from '@redux/queries/authentication';
 
 export interface EmitterAuthData {
   accessToken: string;

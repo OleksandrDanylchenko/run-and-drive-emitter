@@ -1,4 +1,3 @@
-import { protectedEmitterApi, publicEmitterApi } from '@redux/queries';
 import {
   AnyAction,
   combineReducers,
@@ -17,6 +16,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { rtkQueryErrorLogger } from 'run-and-drive-lib/redux';
+
+import { protectedEmitterApi, publicEmitterApi } from '@redux/queries';
 
 import authenticationReducer from './slices/authentication_slice';
 

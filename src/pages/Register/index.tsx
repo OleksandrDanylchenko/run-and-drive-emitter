@@ -1,5 +1,7 @@
+import { FC, useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RegisterPayload } from '@models/api';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -13,12 +15,12 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { history } from '@navigation/Routing';
-import { useRegisterMutation } from '@redux/queries/authentication';
-import { FC, useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
 import { PasswordInput } from 'run-and-drive-lib/components';
 import * as yup from 'yup';
+
+import { RegisterPayload } from '@models/api';
+import history from '@navigation/history';
+import { useRegisterMutation } from '@redux/queries/authentication';
 
 import {
   activationLoginSchema,
@@ -72,7 +74,7 @@ const Register: FC = () => {
 
     const messageData = error.data as { message: string };
     return `${error.status} ${messageData.message}`;
-  }, []);
+  }, [error]);
 
   return (
     <Container maxWidth="sm" css={LoginWrapper}>

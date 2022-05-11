@@ -1,6 +1,7 @@
+import React, { FC } from 'react';
+
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import React, { FC } from 'react';
 
 import { CharacteristicsCard, IndicatorsCard, LocationCard } from './Sections';
 import { Sections } from './styles';

@@ -1,3 +1,5 @@
+import React, { FC, useState } from 'react';
+
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import KeyIcon from '@mui/icons-material/Key';
 import Button from '@mui/material/Button';
@@ -5,8 +7,8 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+
 import DeactivateModal from '@pages/Settings/DeactivateModal';
-import React, { FC, useState } from 'react';
 
 import { EngineerHeader, EngineerWrapper, SettingsWrapper } from './styles';
 

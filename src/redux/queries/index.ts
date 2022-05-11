@@ -1,6 +1,3 @@
-import { API_HOST } from '@constants/index';
-import { history } from '@navigation/Routing';
-import { RootState } from '@redux/store';
 import {
   BaseQueryFn,
   createApi,
@@ -8,6 +5,11 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
+
+import { API_HOST } from '@constants/index';
+import history from '@navigation/history';
+
+import type { RootState } from '@redux/store';
 
 const publicBaseQuery = fetchBaseQuery({ baseUrl: API_HOST });
 

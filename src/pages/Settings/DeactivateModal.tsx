@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { BindingAction } from 'run-and-drive-lib/models';
 
 interface DeactivateModalProps {

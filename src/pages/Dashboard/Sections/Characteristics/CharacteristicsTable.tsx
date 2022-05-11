@@ -1,10 +1,12 @@
-import { TableRowData } from '@models/index';
+import React, { FC, useMemo } from 'react';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import React, { FC, useMemo } from 'react';
+
+import { TableRowData } from '@models/index';
 
 const CharacteristicsTable: FC = () => {
   const tableRows = useMemo<TableRowData[]>(

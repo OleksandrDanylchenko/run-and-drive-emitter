@@ -1,7 +1,8 @@
 import { RegisterPayload } from '@models/api';
 import { publicEmitterApi } from '@redux/queries';
 import { API } from '@redux/queries/api_routes';
-import { EmitterAuthData } from '@redux/slices/authentication_slice';
+
+import type { EmitterAuthData } from '@redux/slices/authentication_slice';
 
 export const authenticationApi = publicEmitterApi.injectEndpoints({
   endpoints: (build) => ({
