@@ -3,3 +3,8 @@ export interface RegisterPayload {
   carActivationCode: string;
   password: string;
 }
+
+export interface ActiveTrip {
+  id: string;
+  startTime: string;
+}

@@ -7,6 +7,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useAppSelector } from '@redux/hooks';
 import { carsApi } from '@redux/queries/cars';
 import { selectCarId } from '@redux/selectors/authentication_selectors';
+import { TEN_MINUTES } from '@utils/time';
 
 import {
   CharacteristicsCard,
@@ -16,12 +17,10 @@ import {
 } from './Sections';
 import { Sections } from './styles';
 
-const TEN_MINUTES = 10 * 60;
-
 const Dashboard: FC = () => {
   const carId = useAppSelector(selectCarId);
   carsApi.endpoints.getCarById.useQuerySubscription(carId || skipToken, {
-    refetchOnMountOrArgChange: TEN_MINUTES,
+    pollingInterval: TEN_MINUTES,
   });
 
   return (
