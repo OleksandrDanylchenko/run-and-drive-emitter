@@ -6,10 +6,28 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { skipToken } from '@reduxjs/toolkit/query';
 
+import LoadingCard from '@components/LoadingCard';
 import IndicatorsTable from '@pages/Dashboard/Sections/Indicators/IndicatorsTable';
+import { useAppSelector } from '@redux/hooks';
+import { carsApi } from '@redux/queries/cars';
+import { selectCarId } from '@redux/selectors/authentication_selectors';
 
 const IndicatorsCard: FC = () => {
+  const carId = useAppSelector(selectCarId);
+  const {
+    data: car,
+    isLoading: isCarLoading,
+    error: carError,
+  } = carsApi.endpoints.getCarById.useQueryState(carId || skipToken);
+
+  if (!car || isCarLoading || carError) {
+    return (
+      <LoadingCard isFetching={!car || isCarLoading} error={carError} linesNumber={2} />
+    );
+  }
+
   return (
     <Card>
       <CardHeader
@@ -21,7 +39,7 @@ const IndicatorsCard: FC = () => {
         }
       />
       <CardContent>
-        <IndicatorsTable />
+        <IndicatorsTable car={car} />
       </CardContent>
     </Card>
   );

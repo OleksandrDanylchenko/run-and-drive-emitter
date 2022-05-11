@@ -6,13 +6,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { skipToken } from '@reduxjs/toolkit/query';
 
+import LoadingCard from '@components/LoadingCard';
 import CharacteristicsTable from '@pages/Dashboard/Sections/Characteristics/CharacteristicsTable';
-import LoadingCharacteristicsCard from '@pages/Dashboard/Sections/Characteristics/LoadingCard';
 import { useAppSelector } from '@redux/hooks';
-import { useGetCarByIdQuery } from '@redux/queries/cars';
+import { carsApi } from '@redux/queries/cars';
 import { selectCarId } from '@redux/selectors/authentication_selectors';
-
-const tenMinutes = 10 * 60;
 
 const CharacteristicsCard: FC = () => {
   const carId = useAppSelector(selectCarId);
@@ -20,14 +18,11 @@ const CharacteristicsCard: FC = () => {
     data: car,
     isLoading: isCarLoading,
     error: carError,
-  } = useGetCarByIdQuery(carId || skipToken, {
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: tenMinutes,
-  });
+  } = carsApi.endpoints.getCarById.useQueryState(carId || skipToken);
 
   if (!car || isCarLoading || carError) {
     return (
-      <LoadingCharacteristicsCard isFetching={!car || isCarLoading} error={carError} />
+      <LoadingCard isFetching={!car || isCarLoading} error={carError} linesNumber={7} />
     );
   }
 

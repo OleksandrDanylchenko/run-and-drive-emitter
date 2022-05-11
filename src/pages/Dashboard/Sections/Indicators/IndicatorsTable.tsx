@@ -7,41 +7,57 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+import { Car, SensorRecord } from 'run-and-drive-lib/models';
+import { toPercentString } from 'run-and-drive-lib/utils';
 
 import { TableRowData } from '@models/index';
 import { PressureRow } from '@pages/Dashboard/Sections/Indicators/styles';
 
-const IndicatorsTable: FC = () => {
-  const tableRows = useMemo<TableRowData[]>(
-    () => [
+interface Props {
+  car: Car;
+}
+
+const IndicatorsTable: FC<Props> = ({ car }) => {
+  const tableRows = useMemo<TableRowData[]>(() => {
+    const { fuelTankOccupancy, wheelsPressure } = {
+      fuelTankOccupancy: 2,
+      wheelsPressure: {
+        frontLeft: 1.2,
+        frontRight: 1.3,
+        rearLeft: 1.3,
+        rearRight: 1.1,
+      },
+    } as SensorRecord;
+    const { fuelCapacity } = car;
+
+    const fuelTankOccupancyPercent = toPercentString(fuelTankOccupancy / fuelCapacity);
+
+    return [
       {
         label: 'Fuel tank occupancy',
-        value: '2L. (47%)',
-      },
-      {
-        label: 'Washing liquid occupancy',
-        value: '300ml. (23%)',
+        value: `${fuelCapacity}L. (${fuelTankOccupancyPercent})`,
       },
       {
         label: 'Wheels pressure',
-        value: (
+        value: wheelsPressure ? (
           <Stack spacing={1}>
             <Typography variant="body2" css={PressureRow}>
-              Front Left: 20 bar
+              Front Left: {wheelsPressure.frontLeft} bar
               <br />
-              Front Right: 2 bar
+              Front Right: {wheelsPressure.frontRight} bar
             </Typography>
             <Typography variant="body2" css={PressureRow}>
-              Rear Left: 2 bar
+              Rear Left: {wheelsPressure.rearLeft} bar
               <br />
-              Rear Right: 20 bar
+              Rear Right: {wheelsPressure.rearRight} bar
             </Typography>
           </Stack>
+        ) : (
+          'Ø'
         ),
       },
-    ],
-    [],
-  );
+    ];
+  }, [car]);
 
   return (
     <TableContainer>
