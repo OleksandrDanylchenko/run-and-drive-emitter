@@ -16,7 +16,7 @@ interface Props {
   error?: FetchBaseQueryError | SerializedError;
 }
 
-const FetchingCharacteristicsCard: FC<Props> = ({ isFetching, error }) => {
+const LoadingCharacteristicsCard: FC<Props> = ({ isFetching, error }) => {
   return (
     <Card>
       {isFetching && <Skeleton sx={{ height: mediaHeight }} variant="rectangular" />}
@@ -41,4 +41,4 @@ const FetchingCharacteristicsCard: FC<Props> = ({ isFetching, error }) => {
   );
 };
 
-export default FetchingCharacteristicsCard;
+export default LoadingCharacteristicsCard;

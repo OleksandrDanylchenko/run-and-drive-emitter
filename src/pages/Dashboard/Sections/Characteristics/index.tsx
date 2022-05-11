@@ -7,22 +7,27 @@ import CardContent from '@mui/material/CardContent';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 import CharacteristicsTable from '@pages/Dashboard/Sections/Characteristics/CharacteristicsTable';
-import FetchingCharacteristicsCard from '@pages/Dashboard/Sections/Characteristics/FetchingCard';
+import LoadingCharacteristicsCard from '@pages/Dashboard/Sections/Characteristics/LoadingCard';
 import { useAppSelector } from '@redux/hooks';
 import { useGetCarByIdQuery } from '@redux/queries/cars';
 import { selectCarId } from '@redux/selectors/authentication_selectors';
+
+const tenMinutes = 10 * 60;
 
 const CharacteristicsCard: FC = () => {
   const carId = useAppSelector(selectCarId);
   const {
     data: car,
-    isFetching: isCarFetching,
+    isLoading: isCarLoading,
     error: carError,
-  } = useGetCarByIdQuery(carId || skipToken);
+  } = useGetCarByIdQuery(carId || skipToken, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: tenMinutes,
+  });
 
-  if (!car || isCarFetching || carError) {
+  if (!car || isCarLoading || carError) {
     return (
-      <FetchingCharacteristicsCard isFetching={!car || isCarFetching} error={carError} />
+      <LoadingCharacteristicsCard isFetching={!car || isCarLoading} error={carError} />
     );
   }
 
