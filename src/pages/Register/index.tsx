@@ -15,7 +15,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { history } from '@navigation/Routing';
 import { useRegisterMutation } from '@redux/queries/authentication';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { PasswordInput } from 'run-and-drive-lib/components';
 import * as yup from 'yup';
@@ -66,6 +66,14 @@ const Register: FC = () => {
     resetRegister();
   };
 
+  const errorMessage = useMemo(() => {
+    if (!error) return null;
+    if (!('status' in error)) return error.message;
+
+    const messageData = error.data as { message: string };
+    return `${error.status} ${messageData.message}`;
+  }, []);
+
   return (
     <Container maxWidth="sm" css={LoginWrapper}>
       <Paper elevation={9} css={FormWrapper}>
@@ -106,17 +114,7 @@ const Register: FC = () => {
             <Alert severity="error">
               <>
                 <AlertTitle>Authentication failed</AlertTitle>
-                {error && (
-                  <>
-                    {'status' in error ? (
-                      <>
-                        {error.status} {JSON.stringify(error.data)}
-                      </>
-                    ) : (
-                      error.message
-                    )}
-                  </>
-                )}
+                {errorMessage}
               </>
             </Alert>
           </Collapse>
