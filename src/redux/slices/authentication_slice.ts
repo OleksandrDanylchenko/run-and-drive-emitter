@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { authenticationApi } from '@redux/queries/authentication';
+import {
+  publicAuthenticationApi,
+  protectedAuthenticationApi,
+} from '@redux/queries/authentication';
 
 export interface EmitterAuthData {
   accessToken: string;
@@ -28,9 +31,15 @@ const authenticationSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(
-      authenticationApi.endpoints.register.matchFulfilled,
+      publicAuthenticationApi.endpoints.register.matchFulfilled,
       (state, { payload }) => {
         state.authData = payload;
+      },
+    );
+    builder.addMatcher(
+      protectedAuthenticationApi.endpoints.deactivate.matchFulfilled,
+      (state, { payload }) => {
+        state.authData = undefined;
       },
     );
   },

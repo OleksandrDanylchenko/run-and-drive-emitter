@@ -4,6 +4,10 @@ export interface RegisterPayload {
   password: string;
 }
 
+export interface DeactivatePayload {
+  password: string;
+}
+
 export interface ActiveTrip {
   id: string;
   startTime: string;

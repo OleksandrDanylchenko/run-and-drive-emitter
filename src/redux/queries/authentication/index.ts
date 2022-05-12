@@ -1,10 +1,10 @@
-import { RegisterPayload } from '@models/api';
-import { publicEmitterApi } from '@redux/queries';
+import { DeactivatePayload, RegisterPayload } from '@models/api';
+import { protectedEmitterApi, publicEmitterApi } from '@redux/queries';
 import { API } from '@redux/queries/api_routes';
 
 import type { EmitterAuthData } from '@redux/slices/authentication_slice';
 
-export const authenticationApi = publicEmitterApi.injectEndpoints({
+export const publicAuthenticationApi = publicEmitterApi.injectEndpoints({
   endpoints: (build) => ({
     register: build.mutation<EmitterAuthData, RegisterPayload>({
       query: (payload) => ({
@@ -17,4 +17,19 @@ export const authenticationApi = publicEmitterApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useRegisterMutation } = authenticationApi;
+export const { useRegisterMutation } = publicAuthenticationApi;
+
+export const protectedAuthenticationApi = protectedEmitterApi.injectEndpoints({
+  endpoints: (build) => ({
+    deactivate: build.mutation<boolean, DeactivatePayload>({
+      query: (payload) => ({
+        url: API.DEACTIVATE,
+        method: 'POST',
+        body: payload,
+      }),
+    }),
+  }),
+  overrideExisting: false,
+});
+
+export const { useDeactivateMutation } = protectedAuthenticationApi;

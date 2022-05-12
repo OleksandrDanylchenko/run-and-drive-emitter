@@ -1,16 +1,12 @@
 import React, { FC, useState } from 'react';
 
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import KeyIcon from '@mui/icons-material/Key';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 
+import DeactivateModal from '@pages/Settings/DeactivateModal';
 import EngineerCard from '@pages/Settings/Sections/Engineer';
 
-import { EngineerHeader, EngineerWrapper, SettingsWrapper } from './styles';
+import { SettingsWrapper } from './styles';
 
 const Settings: FC = () => {
   const [isDeactivationOpened, setDeactivationOpened] = useState(false);
@@ -29,7 +25,7 @@ const Settings: FC = () => {
         onClick={toggleDeactivation}>
         Deactivate emitter
       </Button>
-      {/*<DeactivateModal open={isDeactivationOpened} onClose={toggleDeactivation} />*/}
+      <DeactivateModal open={isDeactivationOpened} onClose={toggleDeactivation} />
     </Container>
   );
 };
