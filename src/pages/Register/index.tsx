@@ -17,6 +17,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { PasswordInput } from 'run-and-drive-lib/components';
+import { getErrorMessage } from 'run-and-drive-lib/redux';
 import * as yup from 'yup';
 
 import { RegisterPayload } from '@models/api';
@@ -25,7 +26,6 @@ import { useRegisterMutation } from '@redux/queries/authentication';
 import {
   activationLoginSchema,
   carActivationCodeSchema,
-  getErrorMessage,
   isEmpty,
   passwordSchema,
 } from '../../utils';

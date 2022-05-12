@@ -4,10 +4,6 @@
  * @returns {Boolean} true & false
  * @description this value is Empty Check
  */
-import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const isEmpty = (value?: string | number | object): boolean => {
   if (value === null) {
     return true;
@@ -20,16 +16,6 @@ export const isEmpty = (value?: string | number | object): boolean => {
   } else {
     return false;
   }
-};
-
-export const getErrorMessage = (
-  error?: FetchBaseQueryError | SerializedError,
-): string | undefined => {
-  if (!error) return;
-  if (!('status' in error)) return error.message;
-
-  const messageData = error.data as { message: string };
-  return `${error.status} ${messageData.message}`;
 };
 
 export * from './validation';

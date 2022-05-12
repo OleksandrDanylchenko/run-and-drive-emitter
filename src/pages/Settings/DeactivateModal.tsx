@@ -15,11 +15,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { PasswordInput } from 'run-and-drive-lib/components';
 import { BindingAction } from 'run-and-drive-lib/models';
+import { getErrorMessage } from 'run-and-drive-lib/redux';
 import * as yup from 'yup';
 
 import { DeactivatePayload } from '@models/api';
 import { useDeactivateMutation } from '@redux/queries/authentication';
-import { getErrorMessage, isEmpty, passwordSchema } from '@utils/index';
+import { isEmpty, passwordSchema } from '@utils/index';
 
 interface DeactivateModalProps {
   open: boolean;

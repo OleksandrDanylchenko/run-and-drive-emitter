@@ -9,10 +9,10 @@ import CardHeader from '@mui/material/CardHeader';
 import Skeleton from '@mui/material/Skeleton';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { getErrorMessage } from 'run-and-drive-lib/redux';
 import { getRandomInt } from 'run-and-drive-lib/utils';
 
 import { mediaHeight } from '@pages/Dashboard/Sections/Characteristics/styles';
-import { getErrorMessage } from '@utils/index';
 
 interface Props {
   title: string;
