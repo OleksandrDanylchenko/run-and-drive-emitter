@@ -20,20 +20,13 @@ import { capitalizeFirstLetter } from 'run-and-drive-lib/utils';
 import { useAppSelector } from '@redux/hooks';
 import { useGetActiveTripQuery } from '@redux/queries/trips';
 import { selectEmittingRateHuman } from '@redux/selectors/emitting_selectors';
-import { FIVE_SECONDS } from '@utils/time';
 
 const StatusCard: FC = () => {
   const isOnline = useOnline();
   const onlineStatus = isOnline ? 'Online' : 'Offline';
 
   const emittingRateHuman = useAppSelector(selectEmittingRateHuman);
-  const {
-    data: activeTrip,
-    isLoading,
-    error,
-  } = useGetActiveTripQuery(undefined, {
-    pollingInterval: FIVE_SECONDS,
-  });
+  const { data: activeTrip, isLoading, error } = useGetActiveTripQuery();
 
   return (
     <Card>
