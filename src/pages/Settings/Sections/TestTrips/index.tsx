@@ -57,7 +57,7 @@ const TestTripsCard: FC = () => {
         {activeTrip ? (
           "YOU'RE ALREADY IN THE TRIP, IDIOT"
         ) : (
-          <TripSelector trips={trips} car={car} />
+          <TripSelector trips={trips} />
         )}
       </CardContent>
     </Card>

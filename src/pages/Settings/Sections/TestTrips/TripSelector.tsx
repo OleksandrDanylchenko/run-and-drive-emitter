@@ -1,6 +1,7 @@
 import React, { FC, useState, useMemo, useCallback, useEffect } from 'react';
 
 import { css } from '@emotion/react';
+import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
@@ -22,10 +23,9 @@ import { TestTripSummary } from '@models/api';
 
 interface LocationTableProps {
   trips: TestTripSummary[];
-  car: Car;
 }
 
-const TripSelector: FC<LocationTableProps> = ({ trips, car }) => {
+const TripSelector: FC<LocationTableProps> = ({ trips }) => {
   const [tripId, setTripId] = useState<string>();
   const chosenTrip = useMemo(
     () => trips.find(({ id }) => id === tripId),
@@ -55,21 +55,28 @@ const TripSelector: FC<LocationTableProps> = ({ trips, car }) => {
         {!tripId && <FormHelperText>Choose the test trip path</FormHelperText>}
       </FormControl>
       {chosenTrip && (
-        <TableContainer>
-          <Table aria-label="Trip details table">
-            <TableBody>
-              <TableRow>
-                <TableCell>Distance</TableCell>
-                <TableCell align="center">{toMeters(chosenTrip.totalDistance)}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell colSpan={2} css={TripsDetailsMapCell}>
-                  <TripDetailsMap chosenTrip={chosenTrip} />
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <>
+          <TableContainer>
+            <Table aria-label="Trip details table">
+              <TableBody>
+                <TableRow>
+                  <TableCell>Distance</TableCell>
+                  <TableCell align="center">
+                    {toMeters(chosenTrip.totalDistance)}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell colSpan={2} css={TripsDetailsMapCell}>
+                    {/*<TripDetailsMap chosenTrip={chosenTrip} />*/}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Button variant="outlined" fullWidth>
+            Choose the trip
+          </Button>
+        </>
       )}
     </Stack>
   );

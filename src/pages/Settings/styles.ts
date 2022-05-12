@@ -7,6 +7,7 @@ export const SettingsWrapper = (theme: Theme) => css`
   ${flexbox({
     direction: 'column',
     justifyContent: 'space-between',
+    gap: pxToRem('15px'),
   })}
   height: calc(100vh - ${theme.mixins.toolbar.minHeight}px);
   padding-top: ${pxToRem('15px')};
