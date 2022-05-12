@@ -13,10 +13,8 @@ import { stringAvatar } from 'run-and-drive-lib/utils';
 
 import LoadingCard from '@components/LoadingCard';
 import { useAppSelector } from '@redux/hooks';
-import { carsApi } from '@redux/queries/cars';
 import { useGetEngineerByIdQuery } from '@redux/queries/engineers';
 import {
-  selectCarId,
   selectEngineerId,
   selectFormattedActivatedAt,
 } from '@redux/selectors/authentication_selectors';

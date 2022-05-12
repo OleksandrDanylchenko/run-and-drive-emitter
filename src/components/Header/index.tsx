@@ -26,9 +26,6 @@ const Header = forwardRef<HTMLHeadingElement>((_, ref) => {
             Emitter
           </Button>
         </ScrollToTop>
-        <IconButton size="large" aria-label="Contact support" color="inherit">
-          <SupportIcon />
-        </IconButton>
         <IconButton
           component={Link}
           size="large"

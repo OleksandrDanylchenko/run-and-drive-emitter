@@ -1,4 +1,5 @@
 import { css, Theme } from '@emotion/react';
+import { pxToRem } from 'run-and-drive-lib/styles';
 
 import { flexbox } from '@styles/mixins';
 
@@ -8,6 +9,6 @@ export const SettingsWrapper = (theme: Theme) => css`
     justifyContent: 'space-between',
   })}
   height: calc(100vh - ${theme.mixins.toolbar.minHeight}px);
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: ${pxToRem('15px')};
+  padding-bottom: ${pxToRem('15px')};
 `;

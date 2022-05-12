@@ -12,3 +12,18 @@ export interface ActiveTrip {
   id: string;
   startTime: string;
 }
+
+export interface TestTripSummary {
+  id: string;
+  name: string;
+  startLocation: google.maps.LatLngLiteral;
+  endLocation: google.maps.LatLngLiteral;
+  totalDistance: number;
+}
+
+export interface GetTestTripDto {
+  id: string;
+  name: string;
+  locations: google.maps.LatLngLiteral[];
+  totalDistance: number;
+}

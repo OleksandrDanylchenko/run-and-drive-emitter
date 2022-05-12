@@ -2,12 +2,6 @@ import React, { FC } from 'react';
 
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import { skipToken } from '@reduxjs/toolkit/query';
-
-import { useAppSelector } from '@redux/hooks';
-import { carsApi } from '@redux/queries/cars';
-import { selectCarId } from '@redux/selectors/authentication_selectors';
-import { TEN_MINUTES } from '@utils/time';
 
 import {
   CharacteristicsCard,

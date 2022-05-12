@@ -2,9 +2,11 @@ import React, { FC, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 
 import DeactivateModal from '@pages/Settings/DeactivateModal';
 import EngineerCard from '@pages/Settings/Sections/Engineer';
+import TestTripsCard from '@pages/Settings/Sections/TestTrips';
 
 import { SettingsWrapper } from './styles';
 
@@ -16,7 +18,10 @@ const Settings: FC = () => {
 
   return (
     <Container maxWidth="sm" css={SettingsWrapper}>
-      <EngineerCard />
+      <Stack spacing={3}>
+        <EngineerCard />
+        <TestTripsCard />
+      </Stack>
       <Button
         variant="contained"
         color="error"
