@@ -46,7 +46,7 @@ const EngineerCard: FC = () => {
 
   const {
     employeeNumber,
-    user: { name, surname },
+    user: { name, surname, photoUrl },
   } = engineer;
   const engineerFullname = `${name} ${surname}`;
 
@@ -63,7 +63,11 @@ const EngineerCard: FC = () => {
       <CardContent>
         <Stack spacing={1}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Avatar {...stringAvatar(engineerFullname)} sx={{ width: 35, height: 35 }} />
+            <Avatar
+              {...stringAvatar(engineerFullname)}
+              src={photoUrl}
+              sx={{ width: 35, height: 35 }}
+            />
             <Typography>
               {engineerFullname}, №{employeeNumber}
             </Typography>
