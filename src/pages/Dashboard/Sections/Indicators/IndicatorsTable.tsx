@@ -20,7 +20,7 @@ interface Props {
 const IndicatorsTable: FC<Props> = ({ car }) => {
   const tableRows = useMemo<TableRowData[]>(() => {
     const { fuelTankOccupancy, wheelsPressure } = {
-      fuelTankOccupancy: 2,
+      fuelTankOccupancy: 20,
       wheelsPressure: {
         frontLeft: 1.2,
         frontRight: 1.3,
@@ -35,7 +35,12 @@ const IndicatorsTable: FC<Props> = ({ car }) => {
     return [
       {
         label: 'Fuel tank occupancy',
-        value: `${fuelCapacity}L. (${fuelTankOccupancyPercent})`,
+        value: (
+          <Typography variant="body2">
+            <strong>{fuelTankOccupancy}L.</strong> / {fuelCapacity}L. <br /> (
+            {fuelTankOccupancyPercent})
+          </Typography>
+        ),
       },
       {
         label: 'Wheels pressure',
