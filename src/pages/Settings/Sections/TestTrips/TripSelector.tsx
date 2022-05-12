@@ -1,7 +1,9 @@
 import React, { FC, useState, useMemo, useCallback, useEffect } from 'react';
 
 import { css } from '@emotion/react';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,12 +16,14 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { Marker } from '@react-google-maps/api';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { GoogleMap } from 'run-and-drive-lib/components';
-import { Car } from 'run-and-drive-lib/models';
+import { getErrorMessage } from 'run-and-drive-lib/redux';
 import { toMeters } from 'run-and-drive-lib/utils';
 
 import { GOOGLE_MAPS_KEY } from '@constants/index';
 import { TestTripSummary } from '@models/api';
+import { useGetTestTripByIdQuery } from '@redux/queries/trips';
 
 interface LocationTableProps {
   trips: TestTripSummary[];
@@ -32,13 +36,24 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
     [tripId, trips],
   );
 
+  const [downloadTripId, setDownloadTripId] = useState<string>();
+  const { isFetching: testTripFetching, error: testTripError } = useGetTestTripByIdQuery(
+    downloadTripId || skipToken,
+  );
+
   const handleTripChange = (event: SelectChangeEvent) => {
+    setDownloadTripId(undefined);
     setTripId(event.target.value as string);
+  };
+
+  const handleTripLoad = () => {
+    if (!tripId) return;
+    setDownloadTripId(tripId);
   };
 
   return (
     <Stack spacing={3}>
-      <FormControl fullWidth>
+      <FormControl fullWidth disabled={testTripFetching}>
         <InputLabel id="trips-select-label">Trip path</InputLabel>
         <Select
           labelId="trips-select-label"
@@ -73,9 +88,18 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Button variant="outlined" fullWidth>
-            Choose the trip
-          </Button>
+          {!testTripError ? (
+            <LoadingButton variant="outlined" fullWidth onClick={handleTripLoad}>
+              Choose the trip
+            </LoadingButton>
+          ) : (
+            <Alert severity="error">
+              <AlertTitle>
+                Cannot download this test trip. Please choose another one
+              </AlertTitle>
+              {getErrorMessage(testTripError)}
+            </Alert>
+          )}
         </>
       )}
     </Stack>

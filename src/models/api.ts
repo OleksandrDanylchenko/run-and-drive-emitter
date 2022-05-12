@@ -21,7 +21,7 @@ export interface TestTripSummary {
   totalDistance: number;
 }
 
-export interface GetTestTripDto {
+export interface TestTrip {
   id: string;
   name: string;
   locations: google.maps.LatLngLiteral[];

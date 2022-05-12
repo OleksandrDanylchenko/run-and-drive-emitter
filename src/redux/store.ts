@@ -22,10 +22,12 @@ import { protectedEmitterApi, publicEmitterApi } from '@redux/queries';
 
 import authenticationReducer from './slices/authentication_slice';
 import emittingReducer from './slices/emitting_slice';
+import testTripReducer from './slices/test_trip_slice';
 
 const reducers = combineReducers({
   authentication: authenticationReducer,
   emitting: emittingReducer,
+  testTrip: testTripReducer,
   [publicEmitterApi.reducerPath]: publicEmitterApi.reducer,
   [protectedEmitterApi.reducerPath]: protectedEmitterApi.reducer,
 });
@@ -35,7 +37,7 @@ const persistedReducer = persistReducer(
     key: 'root',
     version: 1,
     storage,
-    whitelist: ['authentication', 'emitting'],
+    whitelist: ['authentication', 'emitting', 'testTrip'],
   },
   reducers,
 );

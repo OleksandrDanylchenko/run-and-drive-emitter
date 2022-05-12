@@ -1,4 +1,4 @@
-import { ActiveTrip, GetTestTripDto, TestTripSummary } from '@models/api';
+import { ActiveTrip, TestTrip, TestTripSummary } from '@models/api';
 import { protectedEmitterApi } from '@redux/queries';
 import { API } from '@redux/queries/api_routes';
 
@@ -18,10 +18,11 @@ export const tripsApi = protectedEmitterApi.injectEndpoints({
         url: API.TEST_TRIPS,
       }),
     }),
-    getTestTripById: build.query<GetTestTripDto, string>({
+    getTestTripById: build.query<TestTrip, string>({
       query: (tripId) => ({
         url: API.TEST_TRIP_BY_ID(tripId),
       }),
+      keepUnusedDataFor: 5,
     }),
   }),
   overrideExisting: false,
