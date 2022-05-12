@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { Car, SensorRecord } from 'run-and-drive-lib/models';
+import { Car, SensorsRecord } from 'run-and-drive-lib/models';
 import { toPercentString } from 'run-and-drive-lib/utils';
 
 import { TableRowData } from '@models/index';
@@ -27,7 +27,7 @@ const IndicatorsTable: FC<Props> = ({ car }) => {
         rearLeft: 1.3,
         rearRight: 1.1,
       },
-    } as SensorRecord;
+    } as SensorsRecord;
     const { fuelCapacity } = car;
 
     const fuelTankOccupancyPercent = toPercentString(fuelTankOccupancy / fuelCapacity);

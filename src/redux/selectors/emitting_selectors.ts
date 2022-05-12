@@ -1,10 +1,16 @@
+import { createSelector } from '@reduxjs/toolkit';
 import humanizeDuration from 'humanize-duration';
 
 import type { RootState } from '@redux/store';
 
-export const selectEmittingRateMs = (state: RootState) => state.emitting.emittingRate;
+export const selectEmitting = (state: RootState) => state.emitting;
 
-export const selectEmittingRateHuman = (state: RootState) => {
-  const rateMs = selectEmittingRateMs(state);
-  return humanizeDuration(rateMs);
-};
+export const selectEmittingRateMs = (state: RootState) =>
+  selectEmitting(state).emittingRate;
+
+export const selectEmittingRateHuman = createSelector(selectEmittingRateMs, (rateMs) =>
+  humanizeDuration(rateMs),
+);
+
+export const selectLastSensorsRecord = (state: RootState) =>
+  selectEmitting(state).lastSensorsRecord;

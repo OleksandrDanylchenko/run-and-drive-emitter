@@ -23,7 +23,7 @@ const LocationCard: FC = () => {
     setShowMap((showMap) => !showMap);
   };
 
-  const [location, locationError] = useLocation();
+  const [location, locationError] = useLocation({ throttle: 1000 });
 
   if (locationError) {
     return (

@@ -18,11 +18,6 @@ import {
 import { Sections } from './styles';
 
 const Dashboard: FC = () => {
-  const carId = useAppSelector(selectCarId);
-  carsApi.endpoints.getCarById.useQuerySubscription(carId || skipToken, {
-    pollingInterval: TEN_MINUTES,
-  });
-
   return (
     <Container maxWidth="sm">
       <Stack spacing={3} css={Sections}>

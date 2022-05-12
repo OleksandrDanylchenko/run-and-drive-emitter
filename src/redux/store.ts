@@ -4,6 +4,7 @@ import {
   configureStore,
   ThunkAction,
 } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import {
   FLUSH,
   PAUSE,
@@ -42,16 +43,15 @@ const persistedReducer = persistReducer(
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: true,
-  middleware: (getDefaultMiddleware) => [
-    ...getDefaultMiddleware({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
-    publicEmitterApi.middleware,
-    protectedEmitterApi.middleware,
-    rtkQueryErrorLogger,
-  ],
+    })
+      .concat(publicEmitterApi.middleware)
+      .concat(protectedEmitterApi.middleware)
+      .concat(rtkQueryErrorLogger),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -62,5 +62,10 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   AnyAction
 >;
+export type AppThunkApi = {
+  state: RootState;
+  dispatch: AppDispatch;
+  rejectValue: FetchBaseQueryError;
+};
 
 export const persistor = persistStore(store);
