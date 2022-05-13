@@ -36,6 +36,9 @@ const testTripSlice = createSlice({
         state.tripLocationStep = 0;
       },
     );
+    builder.addMatcher(tripsApi.endpoints.startTrip.matchPending, (state) => {
+      state.tripLocationStep = 0;
+    });
     builder.addMatcher(
       tripsApi.endpoints.startTrip.matchFulfilled,
       (state, { payload }) => {

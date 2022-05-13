@@ -20,12 +20,12 @@ const emittingSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(
-      tripsApi.endpoints.getActiveTrip.matchFulfilled,
-      (state, { payload }) => {
-        state.emittingRate = payload ? ONE_SECOND : FIVE_MINUTES;
-      },
-    );
+    builder.addMatcher(tripsApi.endpoints.startTrip.matchFulfilled, (state) => {
+      state.emittingRate = ONE_SECOND;
+    });
+    builder.addMatcher(tripsApi.endpoints.endTrip.matchFulfilled, (state) => {
+      state.emittingRate = FIVE_MINUTES;
+    });
     builder.addMatcher(
       sensorsApi.endpoints.createRecord.matchFulfilled,
       (state, { meta }) => {

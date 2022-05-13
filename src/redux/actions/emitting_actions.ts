@@ -2,6 +2,7 @@ import { createAsyncThunk, createListenerMiddleware } from '@reduxjs/toolkit';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { DateTime } from 'luxon';
 import { SensorsRecord, Car } from 'run-and-drive-lib/models';
+import { computeDistanceBetween } from 'spherical-geometry-js';
 
 import { carsApi } from '@redux/queries/cars';
 import { sensorsApi } from '@redux/queries/sensors';
@@ -37,8 +38,6 @@ export const startEmitting = createAsyncThunk<void, void, AppThunkApi>(
   async (_, { getState, dispatch }) => {
     const initialState = getState();
 
-    debugger;
-
     currentEmittingRate = selectEmittingRateMs(initialState);
     emittingTimerId = setTimeout(async function emitRecord() {
       const emittingState = getState();
@@ -54,7 +53,11 @@ export const startEmitting = createAsyncThunk<void, void, AppThunkApi>(
         );
         if (!carId || !car) return;
 
-        const fuelTankOccupancy = getStationaryFuelOccupancy(lastSensorsRecord, car);
+        const fuelTankOccupancy = getStationaryFuelOccupancy(
+          car,
+          currentLocation,
+          lastSensorsRecord,
+        );
         if (!fuelTankOccupancy) {
           // We ran out of gas
           await endTrip(emittingState, dispatch);
@@ -62,17 +65,22 @@ export const startEmitting = createAsyncThunk<void, void, AppThunkApi>(
         }
 
         const isoTimestamp = DateTime.now().toISO();
+
+        const newSensorsRecord: SensorsRecord = {
+          location: currentLocation,
+          carId: carId,
+          fuelTankOccupancy,
+          timestamp: isoTimestamp,
+        };
+
+        console.log(newSensorsRecord);
+
         await dispatch(
-          sensorsApi.endpoints.createRecord.initiate({
-            location: currentLocation,
-            carId: carId,
-            fuelTankOccupancy,
-            timestamp: isoTimestamp,
-          }),
+          sensorsApi.endpoints.createRecord.initiate(newSensorsRecord),
         ).unwrap();
         dispatch(increaseTestTripStep());
       } catch (error) {
-        console.error('Geolocation error', error);
+        console.error('Sensors sending error', error);
       } finally {
         if (currentEmittingRate) {
           currentEmittingRate = selectEmittingRateMs(emittingState);
@@ -83,10 +91,26 @@ export const startEmitting = createAsyncThunk<void, void, AppThunkApi>(
   },
 );
 
-const getStationaryFuelOccupancy = (lastSensorsRecord?: SensorsRecord, car?: Car) => {
-  if (lastSensorsRecord) return lastSensorsRecord.fuelTankOccupancy;
-  if (car) return car.fuelCapacity * 0.95; // HACK, use 95% of the gas tank as the starter value
-  return 0;
+const getStationaryFuelOccupancy = (
+  car: Car,
+  currentLocation: google.maps.LatLngLiteral,
+  lastSensorsRecord?: SensorsRecord,
+) => {
+  const { fuelCapacity, averageConsumption } = car;
+  if (!lastSensorsRecord) return fuelCapacity;
+
+  const { location, fuelTankOccupancy } = lastSensorsRecord;
+
+  const recordsDistanceMeters = computeDistanceBetween(location, currentLocation);
+  const recordsDistanceKilometers = recordsDistanceMeters / 1000;
+
+  /**
+   * Using proportion
+   * averageConsumption <-> 100km
+   * X <-> recordsDistanceKilometers
+   */
+  const fuelConsumed = (averageConsumption * recordsDistanceKilometers) / 100;
+  return Math.max(fuelTankOccupancy - fuelConsumed, 0);
 };
 
 export const stopEmitting = createAsyncThunk('STOP_EMITTING', async () => {
