@@ -17,15 +17,18 @@ import { getErrorMessage } from 'run-and-drive-lib/redux';
 
 import { TestTripSummary } from '@models/api';
 import TripsDetailsTable from '@pages/Settings/Sections/TestTrips/TripsDetailsTable';
-import { useAppSelector } from '@redux/hooks';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { useGetTestTripByIdQuery } from '@redux/queries/trips';
 import { selectTestTrip } from '@redux/selectors/test_trip_selector';
+import { resetTestTrip } from '@redux/slices/test_trip_slice';
 
 interface LocationTableProps {
   trips: TestTripSummary[];
 }
 
 const TripSelector: FC<LocationTableProps> = ({ trips }) => {
+  const dispatch = useAppDispatch();
+
   const chosenTestTrip = useAppSelector(selectTestTrip);
 
   const [chosenTripId, setChosenTripId] = useState<string | undefined>(
@@ -49,6 +52,10 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
   const handleTripLoad = () => {
     if (!chosenTripId) return;
     setDownloadTripId(chosenTripId);
+  };
+
+  const handleTripDelete = () => {
+    dispatch(resetTestTrip());
   };
 
   return (
@@ -77,7 +84,10 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
             {!chosenTripId && <FormHelperText>Choose the test trip path</FormHelperText>}
           </Stack>
           {chosenTestTrip && (
-            <IconButton aria-label="Delete the chosen trip" color="error">
+            <IconButton
+              aria-label="Delete the chosen trip"
+              color="error"
+              onClick={handleTripDelete}>
               <DeleteIcon />
             </IconButton>
           )}

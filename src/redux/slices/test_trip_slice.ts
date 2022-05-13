@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { TestTrip } from '@models/api';
 import { tripsApi } from '@redux/queries/trips';
@@ -18,7 +18,12 @@ const initialState: TestTripState = {
 const testTripSlice = createSlice({
   name: 'test-trip',
   initialState,
-  reducers: {},
+  reducers: {
+    resetTestTrip: (state) => {
+      state.testTrip = undefined;
+      state.tripLocationStep = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       tripsApi.endpoints.getTestTripById.matchFulfilled,
@@ -37,3 +42,5 @@ const testTripSlice = createSlice({
 });
 
 export default testTripSlice.reducer;
+
+export const { resetTestTrip } = testTripSlice.actions;
