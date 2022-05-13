@@ -28,7 +28,7 @@ const TripSummaryDetailsTable: FC<Props> = ({ tripSummary }) => {
           </TableRow>
           <TableRow>
             <TableCell colSpan={2} css={TripsDetailsMapCell}>
-              {/*<TripDetailsMap tripSummary={tripSummary} />*/}
+              <TripDetailsMap tripSummary={tripSummary} />
             </TableCell>
           </TableRow>
         </TableBody>
