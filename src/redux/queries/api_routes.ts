@@ -7,4 +7,6 @@ export const API = {
   CREATE_SENSORS_RECORD: `/sensors/record`,
   TEST_TRIPS: `/test-trips`,
   TEST_TRIP_BY_ID: (tripId: string) => `/test-trips/${tripId}`,
+  START_TRIP: `/trips`,
+  END_TRIP: (tripId: string) => `/trips/${tripId}/end`,
 };

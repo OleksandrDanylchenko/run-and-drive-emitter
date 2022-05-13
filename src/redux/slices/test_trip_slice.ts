@@ -27,6 +27,12 @@ const testTripSlice = createSlice({
         state.tripLocationStep = 0;
       },
     );
+    builder.addMatcher(
+      tripsApi.endpoints.startTrip.matchFulfilled,
+      (state, { payload }) => {
+        state.serverTripId = payload.id;
+      },
+    );
   },
 });
 

@@ -1,3 +1,7 @@
+export interface ChangeResponseDto {
+  id: string;
+}
+
 export interface RegisterPayload {
   activationLogin: string;
   carActivationCode: string;
@@ -26,4 +30,14 @@ export interface TestTrip {
   name: string;
   locations: google.maps.LatLngLiteral[];
   totalDistance: number;
+}
+
+export interface CreateTripDto {
+  userId: string;
+  carId: string;
+  location: Location;
+}
+
+export interface EndTripDto {
+  location: Location;
 }
