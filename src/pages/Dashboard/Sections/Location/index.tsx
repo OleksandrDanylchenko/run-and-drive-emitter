@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import ExploreIcon from '@mui/icons-material/Explore';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,31 +12,18 @@ import Collapse from '@mui/material/Collapse';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import LoadingCard from '@components/LoadingCard';
-import { useLocation } from '@hooks/useLocation';
+import { useAppSelector } from '@redux/hooks';
+import { selectCurrentTripLocation } from '@redux/selectors/test_trip_selector';
 
 import LocationTable from './LocationTable';
 
 const LocationCard: FC = () => {
+  const currentLocation = useAppSelector(selectCurrentTripLocation);
+
   const [isShowMap, setShowMap] = useState(false);
   const toggleMapShow = () => {
     setShowMap((showMap) => !showMap);
   };
-
-  const [location, locationError] = useLocation({ throttle: 1000 });
-
-  if (locationError) {
-    return (
-      <Alert variant="filled" severity="error">
-        <AlertTitle>Location Error</AlertTitle>
-        Code: {locationError.code} <br />
-        {locationError.message}
-      </Alert>
-    );
-  }
-  if (!location) {
-    return <LoadingCard title="location" fetching={!location} showActions />;
-  }
   return (
     <Card>
       <CardHeader
@@ -47,21 +34,37 @@ const LocationCard: FC = () => {
           </Stack>
         }
       />
-      <CardContent>
-        <LocationTable location={location} />
-      </CardContent>
-      <Collapse in={isShowMap} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            Here is the map!
-          </Typography>
-        </CardContent>
-      </Collapse>
-      <CardActions disableSpacing sx={{ justifyContent: 'end' }}>
-        <Button size="small" onClick={toggleMapShow}>
-          {isShowMap ? 'Hide map' : 'Show on map'}
-        </Button>
-      </CardActions>
+      {!currentLocation && (
+        <Alert
+          severity="info"
+          action={
+            <Button component={Link} size="small" color="inherit" to="settings">
+              SELECT
+            </Button>
+          }
+          sx={{ marginBottom: 0 }}>
+          Test trip hasn&apos;t been selected yet
+        </Alert>
+      )}
+      {currentLocation && (
+        <>
+          <CardContent>
+            <LocationTable location={currentLocation} />
+          </CardContent>
+          <Collapse in={isShowMap} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                Here is the map!
+              </Typography>
+            </CardContent>
+          </Collapse>
+          <CardActions disableSpacing sx={{ justifyContent: 'end' }}>
+            <Button size="small" onClick={toggleMapShow}>
+              {isShowMap ? 'Hide map' : 'Show on map'}
+            </Button>
+          </CardActions>
+        </>
+      )}
     </Card>
   );
 };

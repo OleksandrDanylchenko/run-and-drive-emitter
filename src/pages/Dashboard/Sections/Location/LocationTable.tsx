@@ -11,41 +11,22 @@ import { TableRowData } from '@models/index';
 import { LocationTableRow } from './styles';
 
 interface LocationTableProps {
-  location: GeolocationCoordinates;
+  location: google.maps.LatLngLiteral;
 }
 
 const LocationTable: FC<LocationTableProps> = ({ location }) => {
-  const { accuracy, latitude, longitude, altitude, speed, heading } = location;
-
   const tableRows = useMemo<TableRowData[]>(
     () => [
       {
-        label: 'Accuracy',
-        value: toMeters(accuracy),
-        highlighted: true,
-      },
-      {
         label: 'Latitude',
-        value: latitude,
+        value: toGeoString(location.lat),
       },
       {
         label: 'Longitude',
-        value: longitude,
-      },
-      {
-        label: 'Altitude',
-        value: toMeters(altitude),
-      },
-      {
-        label: 'Speed',
-        value: toKmPerHour(speed),
-      },
-      {
-        label: 'Heading',
-        value: heading,
+        value: toGeoString(location.lng),
       },
     ],
-    [],
+    [location.lat, location.lng],
   );
 
   return (
@@ -68,10 +49,6 @@ const LocationTable: FC<LocationTableProps> = ({ location }) => {
   );
 };
 
-const toMeters = (meters: number | null) => (meters ? `~${meters.toFixed(1)}m.` : null);
-
-// https://youtu.be/ud27dGObAvU?t=262
-const toKmPerHour = (metersPerSecond: number | null) =>
-  metersPerSecond ? `~${metersPerSecond * 3.6}m.` : null;
+const toGeoString = (geoNumber: number) => `${geoNumber.toFixed(6)}°`;
 
 export default LocationTable;
