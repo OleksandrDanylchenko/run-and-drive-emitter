@@ -11,7 +11,7 @@ import { carsApi } from '@redux/queries/cars';
 import { engineersApi } from '@redux/queries/engineers';
 import { tripsApi } from '@redux/queries/trips';
 import { selectCarId, selectEngineerId } from '@redux/selectors/authentication_selectors';
-import { FIVE_SECONDS, TEN_MINUTES } from '@utils/time';
+import { ONE_SECOND, TEN_MINUTES } from '@utils/time';
 
 const Home: FC = () => {
   const carId = useAppSelector(selectCarId);
@@ -20,7 +20,7 @@ const Home: FC = () => {
   });
 
   tripsApi.endpoints.getActiveTrip.useQuerySubscription(undefined, {
-    pollingInterval: FIVE_SECONDS,
+    pollingInterval: ONE_SECOND,
   });
 
   const engineerId = useAppSelector(selectEngineerId);
