@@ -61,16 +61,17 @@ const TestTripsCard: FC = () => {
     isEngineerLoading ||
     !trips ||
     isTripsLoading ||
-    isActiveTripLoading ||
-    !firstTestTripLocation;
+    isActiveTripLoading;
   const error = carError || engineerError || tripsError || activeTripError;
   if (loading || error) {
     return (
-      <LoadingCard title="test trips" fetching={loading} error={error} linesNumber={2} />
+      <LoadingCard title="test trips" fetching={loading} error={error} linesNumber={10} />
     );
   }
 
   const handleTripStart = (tripId: string) => {
+    if (!firstTestTripLocation) return;
+
     startTrip({
       carId: car.id,
       userId: engineer.user.id,
@@ -78,7 +79,7 @@ const TestTripsCard: FC = () => {
     });
   };
 
-  const handleTripEnd = (tripId: string) => {
+  const handleTripEnd = () => {
     if (!activeTrip?.id) return;
     endTrip({ tripId: activeTrip.id });
   };

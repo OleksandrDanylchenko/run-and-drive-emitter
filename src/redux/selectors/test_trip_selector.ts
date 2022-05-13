@@ -19,3 +19,5 @@ export const selectCurrentTripLocation = createSelector(
     return trip.locations[tripStep];
   },
 );
+
+export const selectActiveTripId = (state: RootState) => state.testTrip.serverTripId;

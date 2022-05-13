@@ -5,6 +5,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import IconButton from '@mui/material/IconButton';
@@ -20,7 +26,7 @@ import { TestTripSummary } from '@models/api';
 import TripsDetailsTable from '@pages/Settings/Sections/TestTrips/TripsDetailsTable';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { useGetActiveTripQuery, useGetTestTripByIdQuery } from '@redux/queries/trips';
-import { selectTestTrip } from '@redux/selectors/test_trip_selector';
+import { selectActiveTripId, selectTestTrip } from '@redux/selectors/test_trip_selector';
 import { resetTestTrip } from '@redux/slices/test_trip_slice';
 
 interface LocationTableProps {
@@ -58,10 +64,11 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
   };
 
   const handleTripDelete = () => {
+    onTripEnd();
     dispatch(resetTestTrip());
   };
 
-  const { data: activeTrip } = useGetActiveTripQuery();
+  const activeTripId = useAppSelector(selectActiveTripId);
 
   const handleTripStart = () => {
     if (!chosenTripId) return;
@@ -93,14 +100,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
             </Select>
             {!chosenTripId && <FormHelperText>Choose the test trip path</FormHelperText>}
           </Stack>
-          {downloadedTestTrip && (
-            <IconButton
-              aria-label="Delete the chosen trip"
-              color="error"
-              onClick={handleTripDelete}>
-              <DeleteIcon />
-            </IconButton>
-          )}
+          {downloadedTestTrip && <DeleteTestTrip onDelete={handleTripDelete} />}
         </Stack>
       </FormControl>
       {chosenTripSummary && <TripsDetailsTable tripSummary={chosenTripSummary} />}
@@ -124,7 +124,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
           )}
         </>
       )}
-      {downloadedTestTrip && !activeTrip && (
+      {downloadedTestTrip && !activeTripId && (
         <Stack direction="row" spacing={2}>
           <LoadingButton
             variant="outlined"
@@ -135,7 +135,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
           </LoadingButton>
         </Stack>
       )}
-      {downloadedTestTrip && activeTrip && (
+      {downloadedTestTrip && activeTripId && (
         <Stack direction="row" spacing={2}>
           <LoadingButton
             variant="outlined"
@@ -148,6 +148,53 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
         </Stack>
       )}
     </Stack>
+  );
+};
+
+const DeleteTestTrip: FC<{ onDelete: BindingAction }> = ({ onDelete }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = () => {
+    handleClose();
+    onDelete();
+  };
+
+  return (
+    <>
+      <IconButton
+        aria-label="Delete the chosen trip"
+        color="error"
+        onClick={handleClickOpen}>
+        <DeleteIcon />
+      </IconButton>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">Delete the test trip?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            After deletion the in-progress trip will stop. Are you surely want to delete
+            it now?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleDelete} color="error">
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

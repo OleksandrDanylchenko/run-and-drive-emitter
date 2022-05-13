@@ -40,7 +40,7 @@ export const tripsApi = protectedEmitterApi.injectEndpoints({
     endTrip: build.mutation<ChangeResponseDto, { tripId: string }>({
       query: ({ tripId }) => ({
         url: API.END_TRIP(tripId),
-        method: 'POST',
+        method: 'PATCH',
       }),
     }),
   }),

@@ -38,6 +38,9 @@ const testTripSlice = createSlice({
         state.serverTripId = payload.id;
       },
     );
+    builder.addMatcher(tripsApi.endpoints.endTrip.matchFulfilled, (state) => {
+      state.serverTripId = undefined;
+    });
   },
 });
 
