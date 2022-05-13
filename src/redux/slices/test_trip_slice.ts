@@ -6,11 +6,13 @@ import { tripsApi } from '@redux/queries/trips';
 export interface TestTripState {
   testTrip?: TestTrip;
   serverTripId?: string; // id of the trip started on server that corresponds to the test trip
+  tripLocationStep?: number;
 }
 
 const initialState: TestTripState = {
   testTrip: undefined,
   serverTripId: undefined,
+  tripLocationStep: undefined,
 };
 
 const testTripSlice = createSlice({
@@ -22,6 +24,7 @@ const testTripSlice = createSlice({
       tripsApi.endpoints.getTestTripById.matchFulfilled,
       (state, { payload }) => {
         state.testTrip = payload;
+        state.tripLocationStep = 0;
       },
     );
   },

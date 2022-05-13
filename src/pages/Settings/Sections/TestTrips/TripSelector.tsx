@@ -1,10 +1,13 @@
 import React, { FC, useMemo, useState } from 'react';
 
+import { css } from '@emotion/react';
+import DeleteIcon from '@mui/icons-material/Delete';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
+import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -14,17 +17,23 @@ import { getErrorMessage } from 'run-and-drive-lib/redux';
 
 import { TestTripSummary } from '@models/api';
 import TripsDetailsTable from '@pages/Settings/Sections/TestTrips/TripsDetailsTable';
+import { useAppSelector } from '@redux/hooks';
 import { useGetTestTripByIdQuery } from '@redux/queries/trips';
+import { selectTestTrip } from '@redux/selectors/test_trip_selector';
 
 interface LocationTableProps {
   trips: TestTripSummary[];
 }
 
 const TripSelector: FC<LocationTableProps> = ({ trips }) => {
-  const [tripId, setTripId] = useState<string>();
+  const chosenTestTrip = useAppSelector(selectTestTrip);
+
+  const [chosenTripId, setChosenTripId] = useState<string | undefined>(
+    chosenTestTrip?.id,
+  );
   const chosenTripSummary = useMemo(
-    () => trips.find(({ id }) => id === tripId),
-    [tripId, trips],
+    () => trips.find(({ id }) => id === chosenTripId),
+    [chosenTripId, trips],
   );
 
   const [downloadTripId, setDownloadTripId] = useState<string>();
@@ -34,42 +43,56 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
 
   const handleTripChange = (event: SelectChangeEvent) => {
     setDownloadTripId(undefined);
-    setTripId(event.target.value as string);
+    setChosenTripId(event.target.value as string);
   };
 
   const handleTripLoad = () => {
-    if (!tripId) return;
-    setDownloadTripId(tripId);
+    if (!chosenTripId) return;
+    setDownloadTripId(chosenTripId);
   };
 
   return (
     <Stack spacing={3}>
       <FormControl fullWidth disabled={testTripFetching}>
-        <InputLabel id="trips-select-label">Trip path</InputLabel>
-        <Select
-          labelId="trips-select-label"
-          id="trips-select"
-          value={tripId}
-          label="Trip path"
-          onChange={handleTripChange}>
-          {trips.map(({ id, name }) => (
-            <MenuItem key={id} value={id}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        {!tripId && <FormHelperText>Choose the test trip path</FormHelperText>}
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack flex={1}>
+            <InputLabel id="trips-select-label">Trip path</InputLabel>
+            <Select
+              label="Trip path"
+              labelId="trips-select-label"
+              id="trips-select"
+              value={chosenTripId}
+              readOnly={!!chosenTestTrip}
+              onChange={handleTripChange}
+              css={SelectorStyles}
+              classes={{
+                icon: chosenTestTrip ? 'icon-arrow' : undefined,
+              }}>
+              {trips.map(({ id, name }) => (
+                <MenuItem key={id} value={id}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+            {!chosenTripId && <FormHelperText>Choose the test trip path</FormHelperText>}
+          </Stack>
+          {chosenTestTrip && (
+            <IconButton aria-label="Delete the chosen trip" color="error">
+              <DeleteIcon />
+            </IconButton>
+          )}
+        </Stack>
       </FormControl>
-      {chosenTripSummary && (
+      {chosenTripSummary && <TripsDetailsTable tripSummary={chosenTripSummary} />}
+      {!chosenTestTrip && (
         <>
-          <TripsDetailsTable tripSummary={chosenTripSummary} />
           {!testTripError ? (
             <LoadingButton
               variant="outlined"
               fullWidth
               loading={testTripFetching}
               onClick={handleTripLoad}>
-              Choose the trip
+              Load the trip
             </LoadingButton>
           ) : (
             <Alert severity="error">
@@ -81,8 +104,25 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
           )}
         </>
       )}
+      {chosenTestTrip && (
+        <Stack direction="row" spacing={2}>
+          <LoadingButton
+            variant="outlined"
+            fullWidth
+            loading={testTripFetching}
+            onClick={() => alert('Start the trip!')}>
+            Start the trip
+          </LoadingButton>
+        </Stack>
+      )}
     </Stack>
   );
 };
+
+const SelectorStyles = css`
+  .icon-arrow {
+    display: none;
+  }
+`;
 
 export default TripSelector;

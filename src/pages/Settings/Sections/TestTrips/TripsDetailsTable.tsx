@@ -28,7 +28,7 @@ const TripsDetailsTable: FC<Props> = ({ tripSummary }) => {
           </TableRow>
           <TableRow>
             <TableCell colSpan={2} css={TripsDetailsMapCell}>
-              <TripDetailsMap tripSummary={tripSummary} />
+              {/*<TripDetailsMap tripSummary={tripSummary} />*/}
             </TableCell>
           </TableRow>
         </TableBody>
@@ -73,10 +73,7 @@ const TripDetailsMap: FC<Props> = ({ tripSummary }) => {
   );
 
   return (
-    <GoogleMap
-      apiKey={GOOGLE_MAPS_KEY}
-      onMapLoad={(map: google.maps.Map) => setMapInstance(map)}
-      css={TripsDetailsMap}>
+    <GoogleMap apiKey={GOOGLE_MAPS_KEY} onMapLoad={setMapInstance} css={TripsDetailsMap}>
       {mapInstance && (
         <>
           <Marker position={startLocation} icon={getMarkerIcon('start')} />
