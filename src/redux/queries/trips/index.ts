@@ -5,6 +5,7 @@ import {
   TestTrip,
   TestTripSummary,
 } from '@models/api';
+import { startEmitting, stopEmitting } from '@redux/actions/emitting_actions';
 import { protectedEmitterApi } from '@redux/queries';
 import { API } from '@redux/queries/api_routes';
 
@@ -36,12 +37,20 @@ export const tripsApi = protectedEmitterApi.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(startEmitting());
+      },
     }),
     endTrip: build.mutation<ChangeResponseDto, { tripId: string }>({
       query: ({ tripId }) => ({
         url: API.END_TRIP(tripId),
         method: 'PATCH',
       }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        dispatch(stopEmitting());
+        await queryFulfilled;
+      },
     }),
   }),
   overrideExisting: false,

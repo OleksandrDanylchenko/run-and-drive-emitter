@@ -19,6 +19,10 @@ const testTripSlice = createSlice({
   name: 'test-trip',
   initialState,
   reducers: {
+    increaseTestTripStep: (state) => {
+      state.tripLocationStep ||= 0;
+      state.tripLocationStep += 1;
+    },
     resetTestTrip: (state) => {
       state.testTrip = undefined;
       state.tripLocationStep = undefined;
@@ -46,4 +50,4 @@ const testTripSlice = createSlice({
 
 export default testTripSlice.reducer;
 
-export const { resetTestTrip } = testTripSlice.actions;
+export const { increaseTestTripStep, resetTestTrip } = testTripSlice.actions;

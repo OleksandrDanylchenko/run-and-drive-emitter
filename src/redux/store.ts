@@ -18,6 +18,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { rtkQueryErrorLogger } from 'run-and-drive-lib/redux';
 
+import { emittingListenerMiddleware } from '@redux/actions/emitting_actions';
 import { protectedEmitterApi, publicEmitterApi } from '@redux/queries';
 
 import authenticationReducer from './slices/authentication_slice';
@@ -51,6 +52,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     })
+      .prepend(emittingListenerMiddleware.middleware)
       .concat(publicEmitterApi.middleware)
       .concat(protectedEmitterApi.middleware)
       .concat(rtkQueryErrorLogger),
