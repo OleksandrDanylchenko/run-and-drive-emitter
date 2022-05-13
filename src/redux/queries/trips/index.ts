@@ -28,7 +28,7 @@ export const tripsApi = protectedEmitterApi.injectEndpoints({
       query: (tripId) => ({
         url: API.TEST_TRIP_BY_ID(tripId),
       }),
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 0,
     }),
     startTrip: build.mutation<ChangeResponseDto, CreateTripDto>({
       query: (payload) => ({

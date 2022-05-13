@@ -20,7 +20,10 @@ import {
   useStartTripMutation,
 } from '@redux/queries/trips';
 import { selectCarId, selectEngineerId } from '@redux/selectors/authentication_selectors';
-import { selectFirstTripLocation } from '@redux/selectors/test_trip_selector';
+import {
+  selectActiveTripId,
+  selectFirstTripLocation,
+} from '@redux/selectors/test_trip_selector';
 
 const TestTripsCard: FC = () => {
   const carId = useAppSelector(selectCarId);
@@ -43,11 +46,9 @@ const TestTripsCard: FC = () => {
     error: tripsError,
   } = useGetTestTripsQuery();
 
-  const {
-    data: activeTrip,
-    isLoading: isActiveTripLoading,
-    error: activeTripError,
-  } = useGetActiveTripQuery();
+  const activeTripId = useAppSelector(selectActiveTripId);
+  const { isLoading: isActiveTripLoading, error: activeTripError } =
+    useGetActiveTripQuery();
 
   const firstTestTripLocation = useAppSelector(selectFirstTripLocation);
 
@@ -69,7 +70,7 @@ const TestTripsCard: FC = () => {
     );
   }
 
-  const handleTripStart = (tripId: string) => {
+  const handleTripStart = (_tripId: string) => {
     if (!firstTestTripLocation) return;
 
     startTrip({
@@ -80,8 +81,8 @@ const TestTripsCard: FC = () => {
   };
 
   const handleTripEnd = () => {
-    if (!activeTrip?.id) return;
-    endTrip({ tripId: activeTrip.id });
+    if (!activeTripId) return;
+    endTrip({ tripId: activeTripId });
   };
 
   return (

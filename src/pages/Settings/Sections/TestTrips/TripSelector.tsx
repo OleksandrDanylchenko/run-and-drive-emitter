@@ -1,6 +1,6 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, {FC, useMemo, useState} from 'react';
 
-import { css } from '@emotion/react';
+import {css} from '@emotion/react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
@@ -16,18 +16,18 @@ import FormHelperText from '@mui/material/FormHelperText';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, {SelectChangeEvent} from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
-import { skipToken } from '@reduxjs/toolkit/query';
-import { BindingCallback1, BindingAction } from 'run-and-drive-lib/models';
-import { getErrorMessage } from 'run-and-drive-lib/redux';
+import {skipToken} from '@reduxjs/toolkit/query';
+import {BindingAction, BindingCallback1} from 'run-and-drive-lib/models';
+import {getErrorMessage} from 'run-and-drive-lib/redux';
 
-import { TestTripSummary } from '@models/api';
+import {TestTripSummary} from '@models/api';
 import TripsDetailsTable from '@pages/Settings/Sections/TestTrips/TripsDetailsTable';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { useGetActiveTripQuery, useGetTestTripByIdQuery } from '@redux/queries/trips';
-import { selectActiveTripId, selectTestTrip } from '@redux/selectors/test_trip_selector';
-import { resetTestTrip } from '@redux/slices/test_trip_slice';
+import {useAppDispatch, useAppSelector} from '@redux/hooks';
+import {useGetTestTripByIdQuery,} from '@redux/queries/trips';
+import {selectActiveTripId, selectTestTrip} from '@redux/selectors/test_trip_selector';
+import {resetTestTrip} from '@redux/slices/test_trip_slice';
 
 interface LocationTableProps {
   trips: TestTripSummary[];
@@ -64,6 +64,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
   };
 
   const handleTripDelete = () => {
+    setDownloadTripId(undefined);
     onTripEnd();
     dispatch(resetTestTrip());
   };
@@ -152,10 +153,16 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
 };
 
 const DeleteTestTrip: FC<{ onDelete: BindingAction }> = ({ onDelete }) => {
+  const activeTripId = useAppSelector(selectActiveTripId);
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (activeTripId) {
+      setOpen(true);
+    } else {
+      onDelete();
+    }
   };
 
   const handleClose = () => {
