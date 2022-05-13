@@ -58,11 +58,11 @@ const LocationCard: FC = () => {
               </Typography>
             </CardContent>
           </Collapse>
-          <CardActions disableSpacing sx={{ justifyContent: 'end' }}>
-            <Button size="small" onClick={toggleMapShow}>
-              {isShowMap ? 'Hide map' : 'Show on map'}
-            </Button>
-          </CardActions>
+          {/*<CardActions disableSpacing sx={{ justifyContent: 'end' }}>*/}
+          {/*  <Button size="small" onClick={toggleMapShow}>*/}
+          {/*    {isShowMap ? 'Hide map' : 'Show on map'}*/}
+          {/*  </Button>*/}
+          {/*</CardActions>*/}
         </>
       )}
     </Card>

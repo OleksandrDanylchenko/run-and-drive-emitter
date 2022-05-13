@@ -13,26 +13,29 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { BindingCallback1 } from 'run-and-drive-lib/models';
 import { getErrorMessage } from 'run-and-drive-lib/redux';
 
 import { TestTripSummary } from '@models/api';
 import TripsDetailsTable from '@pages/Settings/Sections/TestTrips/TripsDetailsTable';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { useGetTestTripByIdQuery } from '@redux/queries/trips';
+import { useGetActiveTripQuery, useGetTestTripByIdQuery } from '@redux/queries/trips';
 import { selectTestTrip } from '@redux/selectors/test_trip_selector';
 import { resetTestTrip } from '@redux/slices/test_trip_slice';
 
 interface LocationTableProps {
   trips: TestTripSummary[];
+  onTripStart: BindingCallback1<string>;
+  onTripEnd: BindingCallback1<string>;
 }
 
-const TripSelector: FC<LocationTableProps> = ({ trips }) => {
+const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd }) => {
   const dispatch = useAppDispatch();
 
-  const chosenTestTrip = useAppSelector(selectTestTrip);
+  const downloadedTestTrip = useAppSelector(selectTestTrip);
 
   const [chosenTripId, setChosenTripId] = useState<string | undefined>(
-    chosenTestTrip?.id,
+    downloadedTestTrip?.id,
   );
   const chosenTripSummary = useMemo(
     () => trips.find(({ id }) => id === chosenTripId),
@@ -58,6 +61,18 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
     dispatch(resetTestTrip());
   };
 
+  const { data: activeTrip } = useGetActiveTripQuery();
+
+  const handleTripStart = () => {
+    if (!chosenTripId) return;
+    onTripStart(chosenTripId);
+  };
+
+  const handleTripEnd = () => {
+    if (!activeTrip) return;
+    onTripEnd(chosenTripId);
+  };
+
   return (
     <Stack spacing={3}>
       <FormControl fullWidth disabled={testTripFetching}>
@@ -69,11 +84,11 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
               labelId="trips-select-label"
               id="trips-select"
               value={chosenTripId}
-              readOnly={!!chosenTestTrip}
+              readOnly={!!downloadedTestTrip}
               onChange={handleTripChange}
               css={SelectorStyles}
               classes={{
-                icon: chosenTestTrip ? 'icon-arrow' : undefined,
+                icon: downloadedTestTrip ? 'icon-arrow' : undefined,
               }}>
               {trips.map(({ id, name }) => (
                 <MenuItem key={id} value={id}>
@@ -83,7 +98,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
             </Select>
             {!chosenTripId && <FormHelperText>Choose the test trip path</FormHelperText>}
           </Stack>
-          {chosenTestTrip && (
+          {downloadedTestTrip && (
             <IconButton
               aria-label="Delete the chosen trip"
               color="error"
@@ -94,7 +109,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
         </Stack>
       </FormControl>
       {chosenTripSummary && <TripsDetailsTable tripSummary={chosenTripSummary} />}
-      {!chosenTestTrip && (
+      {!downloadedTestTrip && (
         <>
           {!testTripError ? (
             <LoadingButton
@@ -114,14 +129,26 @@ const TripSelector: FC<LocationTableProps> = ({ trips }) => {
           )}
         </>
       )}
-      {chosenTestTrip && (
+      {downloadedTestTrip && !activeTrip && (
         <Stack direction="row" spacing={2}>
           <LoadingButton
             variant="outlined"
             fullWidth
             loading={testTripFetching}
-            onClick={() => alert('Start the trip!')}>
+            onClick={handleTripStart}>
             Start the trip
+          </LoadingButton>
+        </Stack>
+      )}
+      {downloadedTestTrip && activeTrip && (
+        <Stack direction="row" spacing={2}>
+          <LoadingButton
+            variant="outlined"
+            color="error"
+            fullWidth
+            loading={false}
+            onClick={handleTripEnd}>
+            Stop the trip
           </LoadingButton>
         </Stack>
       )}

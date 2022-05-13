@@ -8,8 +8,9 @@ import { HideOnScroll } from 'run-and-drive-lib/components';
 import Header from '@components/Header';
 import { useAppSelector } from '@redux/hooks';
 import { carsApi } from '@redux/queries/cars';
+import { engineersApi } from '@redux/queries/engineers';
 import { tripsApi } from '@redux/queries/trips';
-import { selectCarId } from '@redux/selectors/authentication_selectors';
+import { selectCarId, selectEngineerId } from '@redux/selectors/authentication_selectors';
 import { FIVE_SECONDS, TEN_MINUTES } from '@utils/time';
 
 const Home: FC = () => {
@@ -20,6 +21,11 @@ const Home: FC = () => {
 
   tripsApi.endpoints.getActiveTrip.useQuerySubscription(undefined, {
     pollingInterval: FIVE_SECONDS,
+  });
+
+  const engineerId = useAppSelector(selectEngineerId);
+  engineersApi.endpoints.getEngineerById.useQuerySubscription(engineerId || skipToken, {
+    pollingInterval: TEN_MINUTES,
   });
 
   return (

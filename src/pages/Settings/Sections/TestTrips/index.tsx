@@ -12,8 +12,15 @@ import LoadingCard from '@components/LoadingCard';
 import TripSelector from '@pages/Settings/Sections/TestTrips/TripSelector';
 import { useAppSelector } from '@redux/hooks';
 import { useGetCarByIdQuery } from '@redux/queries/cars';
-import { useGetActiveTripQuery, useGetTestTripsQuery } from '@redux/queries/trips';
-import { selectCarId } from '@redux/selectors/authentication_selectors';
+import { useGetEngineerByIdQuery } from '@redux/queries/engineers';
+import {
+  useEndTripMutation,
+  useGetActiveTripQuery,
+  useGetTestTripsQuery,
+  useStartTripMutation,
+} from '@redux/queries/trips';
+import { selectCarId, selectEngineerId } from '@redux/selectors/authentication_selectors';
+import { selectFirstTripLocation } from '@redux/selectors/test_trip_selector';
 
 const TestTripsCard: FC = () => {
   const carId = useAppSelector(selectCarId);
@@ -22,6 +29,13 @@ const TestTripsCard: FC = () => {
     isLoading: isCarLoading,
     error: carError,
   } = useGetCarByIdQuery(carId || skipToken);
+
+  const engineerId = useAppSelector(selectEngineerId);
+  const {
+    data: engineer,
+    isLoading: isEngineerLoading,
+    error: engineerError,
+  } = useGetEngineerByIdQuery(engineerId || skipToken);
 
   const {
     data: trips,
@@ -35,13 +49,39 @@ const TestTripsCard: FC = () => {
     error: activeTripError,
   } = useGetActiveTripQuery();
 
-  const loading = !car || isCarLoading || !trips || isTripsLoading || isActiveTripLoading;
-  const error = carError || tripsError || activeTripError;
+  const firstTestTripLocation = useAppSelector(selectFirstTripLocation);
+
+  const [startTrip] = useStartTripMutation();
+  const [endTrip] = useEndTripMutation();
+
+  const loading =
+    !car ||
+    isCarLoading ||
+    !engineer ||
+    isEngineerLoading ||
+    !trips ||
+    isTripsLoading ||
+    isActiveTripLoading ||
+    !firstTestTripLocation;
+  const error = carError || engineerError || tripsError || activeTripError;
   if (loading || error) {
     return (
       <LoadingCard title="test trips" fetching={loading} error={error} linesNumber={2} />
     );
   }
+
+  const handleTripStart = (tripId: string) => {
+    startTrip({
+      carId: car.id,
+      userId: engineer.user.id,
+      location: firstTestTripLocation,
+    });
+  };
+
+  const handleTripEnd = (tripId: string) => {
+    if (!activeTrip?.id) return;
+    endTrip({ tripId: activeTrip.id });
+  };
 
   return (
     <Card>
@@ -54,11 +94,11 @@ const TestTripsCard: FC = () => {
         }
       />
       <CardContent>
-        {activeTrip ? (
-          "YOU'RE ALREADY IN THE TRIP, IDIOT"
-        ) : (
-          <TripSelector trips={trips} />
-        )}
+        <TripSelector
+          trips={trips}
+          onTripStart={handleTripStart}
+          onTripEnd={handleTripEnd}
+        />
       </CardContent>
     </Card>
   );

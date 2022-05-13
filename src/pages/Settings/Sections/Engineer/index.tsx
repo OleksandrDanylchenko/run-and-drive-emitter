@@ -18,7 +18,6 @@ import {
   selectEngineerId,
   selectFormattedActivatedAt,
 } from '@redux/selectors/authentication_selectors';
-import { TEN_MINUTES } from '@utils/time';
 
 const EngineerCard: FC = () => {
   const engineerId = useAppSelector(selectEngineerId);
@@ -26,9 +25,7 @@ const EngineerCard: FC = () => {
     data: engineer,
     isLoading: isEngineerLoading,
     error: engineerError,
-  } = useGetEngineerByIdQuery(engineerId || skipToken, {
-    pollingInterval: TEN_MINUTES,
-  });
+  } = useGetEngineerByIdQuery(engineerId || skipToken);
   const { localeString, relative } = useAppSelector(selectFormattedActivatedAt);
 
   if (!engineer || isEngineerLoading || engineerError) {

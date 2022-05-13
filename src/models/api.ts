@@ -35,9 +35,5 @@ export interface TestTrip {
 export interface CreateTripDto {
   userId: string;
   carId: string;
-  location: Location;
-}
-
-export interface EndTripDto {
-  location: Location;
+  location: google.maps.LatLngLiteral;
 }

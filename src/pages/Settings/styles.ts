@@ -9,7 +9,7 @@ export const SettingsWrapper = (theme: Theme) => css`
     justifyContent: 'space-between',
     gap: pxToRem('15px'),
   })}
-  height: calc(100vh - ${theme.mixins.toolbar.minHeight}px);
+  min-height: calc(100vh - ${theme.mixins.toolbar.minHeight}px);
   padding-top: ${pxToRem('15px')};
   padding-bottom: ${pxToRem('15px')};
 `;

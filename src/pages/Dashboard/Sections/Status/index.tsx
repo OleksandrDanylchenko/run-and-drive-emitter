@@ -59,13 +59,13 @@ const StatusCard: FC = () => {
                   css={(theme) =>
                     NetworkStyle(theme, { success: !error, error: !!error })
                   }>
-                  {isLoading ? <CircularProgress size={15} /> : 'Online'}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Emitting rate</TableCell>
-                <TableCell align="center" css={(theme) => NetworkStyle(theme)}>
-                  {emittingRateHuman}
+                  {isLoading ? (
+                    <CircularProgress size={15} />
+                  ) : error ? (
+                    'Offline'
+                  ) : (
+                    'Online'
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -75,7 +75,13 @@ const StatusCard: FC = () => {
                   css={(theme) =>
                     NetworkStyle(theme, { success: !!activeTrip, error: !!error })
                   }>
-                  {activeTrip ? 'In a trip' : 'Free for a trip'}
+                  {error ? 'Offline' : activeTrip ? 'In a trip' : 'Free for a trip'}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Emitting rate</TableCell>
+                <TableCell align="center" css={(theme) => NetworkStyle(theme)}>
+                  {emittingRateHuman}
                 </TableCell>
               </TableRow>
             </TableBody>

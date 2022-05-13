@@ -2,7 +2,6 @@ import {
   ActiveTrip,
   ChangeResponseDto,
   CreateTripDto,
-  EndTripDto,
   TestTrip,
   TestTripSummary,
 } from '@models/api';
@@ -38,14 +37,10 @@ export const tripsApi = protectedEmitterApi.injectEndpoints({
         body: payload,
       }),
     }),
-    endTrip: build.mutation<
-      ChangeResponseDto,
-      { tripId: string; endPayload: EndTripDto }
-    >({
-      query: ({ tripId, endPayload }) => ({
+    endTrip: build.mutation<ChangeResponseDto, { tripId: string }>({
+      query: ({ tripId }) => ({
         url: API.END_TRIP(tripId),
         method: 'POST',
-        body: endPayload,
       }),
     }),
   }),

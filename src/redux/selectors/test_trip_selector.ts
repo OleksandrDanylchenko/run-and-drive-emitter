@@ -6,6 +6,11 @@ export const selectTestTrip = (state: RootState) => state.testTrip.testTrip;
 
 export const selectTestTripStep = (state: RootState) => state.testTrip.tripLocationStep;
 
+export const selectFirstTripLocation = createSelector(
+  selectTestTrip,
+  (trip) => trip?.locations[0],
+);
+
 export const selectCurrentTripLocation = createSelector(
   selectTestTrip,
   selectTestTripStep,
