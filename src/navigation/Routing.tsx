@@ -27,6 +27,7 @@ const Routing: FC = () => {
           </Route>
         </Route>
         <Route element={<Navigate to="/" />} />
+        <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
