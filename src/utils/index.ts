@@ -19,4 +19,3 @@ export const isEmpty = (value?: string | number | object): boolean => {
 };
 
 export * from './validation';
-export * from './time';

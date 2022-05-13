@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { HideOnScroll } from 'run-and-drive-lib/components';
+import { ONE_SECOND, TEN_MINUTES } from 'run-and-drive-lib/utils';
 
 import Header from '@components/Header';
 import { useAppSelector } from '@redux/hooks';
@@ -11,7 +12,6 @@ import { carsApi } from '@redux/queries/cars';
 import { engineersApi } from '@redux/queries/engineers';
 import { tripsApi } from '@redux/queries/trips';
 import { selectCarId, selectEngineerId } from '@redux/selectors/authentication_selectors';
-import { ONE_SECOND, TEN_MINUTES } from '@utils/time';
 
 const Home: FC = () => {
   const carId = useAppSelector(selectCarId);

@@ -2,10 +2,10 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { SensorsRecord } from 'run-and-drive-lib/models';
+import { FIVE_MINUTES, ONE_SECOND } from 'run-and-drive-lib/utils';
 
 import { sensorsApi } from '@redux/queries/sensors';
 import { tripsApi } from '@redux/queries/trips';
-import { FIVE_MINUTES, ONE_SECOND } from '@utils/time';
 
 export interface EmittingState {
   emittingRate: number; // Number of ms. between emits,
