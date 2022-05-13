@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { BindingCallback1 } from 'run-and-drive-lib/models';
+import { BindingCallback1, BindingAction } from 'run-and-drive-lib/models';
 import { getErrorMessage } from 'run-and-drive-lib/redux';
 
 import { TestTripSummary } from '@models/api';
@@ -26,7 +26,7 @@ import { resetTestTrip } from '@redux/slices/test_trip_slice';
 interface LocationTableProps {
   trips: TestTripSummary[];
   onTripStart: BindingCallback1<string>;
-  onTripEnd: BindingCallback1<string>;
+  onTripEnd: BindingAction;
 }
 
 const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd }) => {
@@ -66,11 +66,6 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
   const handleTripStart = () => {
     if (!chosenTripId) return;
     onTripStart(chosenTripId);
-  };
-
-  const handleTripEnd = () => {
-    if (!activeTrip) return;
-    onTripEnd(chosenTripId);
   };
 
   return (
@@ -147,7 +142,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
             color="error"
             fullWidth
             loading={false}
-            onClick={handleTripEnd}>
+            onClick={onTripEnd}>
             Stop the trip
           </LoadingButton>
         </Stack>

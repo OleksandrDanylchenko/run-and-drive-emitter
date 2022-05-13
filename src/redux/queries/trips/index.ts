@@ -14,9 +14,9 @@ export const tripsApi = protectedEmitterApi.injectEndpoints({
       query: () => ({
         url: API.ACTIVE_TRIP,
       }),
-      transformResponse: (baseQueryReturnValue, meta, arg) => {
-        const { activeTrip } = baseQueryReturnValue as { activeTrip?: ActiveTrip };
-        return !activeTrip ? null : activeTrip;
+      transformResponse: (baseQueryReturnValue) => {
+        const { trip } = baseQueryReturnValue as { trip?: ActiveTrip };
+        return !trip ? null : trip;
       },
     }),
     getTestTrips: build.query<TestTripSummary[] | null, void>({
