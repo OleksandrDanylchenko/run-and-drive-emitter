@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+/* eslint-disable import/no-cycle */
+
+import { createSlice } from '@reduxjs/toolkit';
 
 import { TestTrip } from '@models/api';
 import { tripsApi } from '@redux/queries/trips';

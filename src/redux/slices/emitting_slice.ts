@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+
 import { createSlice } from '@reduxjs/toolkit';
 import { SensorsRecord } from 'run-and-drive-lib/models';
 

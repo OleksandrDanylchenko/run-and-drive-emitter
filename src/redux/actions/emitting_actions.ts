@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+
 import { createAsyncThunk, createListenerMiddleware } from '@reduxjs/toolkit';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { DateTime } from 'luxon';
