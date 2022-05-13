@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 import LoadingCard from '@components/LoadingCard';
+import OngoingTripDetailsTable from '@pages/Settings/Sections/TestTrips/OngoinTripDetailsTable';
 import TripSelector from '@pages/Settings/Sections/TestTrips/TripSelector';
 import { useAppSelector } from '@redux/hooks';
 import { useGetCarByIdQuery } from '@redux/queries/cars';
@@ -47,8 +48,11 @@ const TestTripsCard: FC = () => {
   } = useGetTestTripsQuery();
 
   const activeTripId = useAppSelector(selectActiveTripId);
-  const { isLoading: isActiveTripLoading, error: activeTripError } =
-    useGetActiveTripQuery();
+  const {
+    data: activeTrip,
+    isLoading: isActiveTripLoading,
+    error: activeTripError,
+  } = useGetActiveTripQuery();
 
   const firstTestTripLocation = useAppSelector(selectFirstTripLocation);
 
@@ -96,11 +100,14 @@ const TestTripsCard: FC = () => {
         }
       />
       <CardContent>
-        <TripSelector
-          trips={trips}
-          onTripStart={handleTripStart}
-          onTripEnd={handleTripEnd}
-        />
+        <Stack spacing={3}>
+          <TripSelector
+            trips={trips}
+            onTripStart={handleTripStart}
+            onTripEnd={handleTripEnd}
+          />
+          {activeTrip && <OngoingTripDetailsTable trip={activeTrip} />}
+        </Stack>
       </CardContent>
     </Card>
   );

@@ -1,26 +1,18 @@
 /* eslint-disable import/no-cycle */
 
-import {
-  ActiveTrip,
-  ChangeResponseDto,
-  CreateTripDto,
-  TestTrip,
-  TestTripSummary,
-} from '@models/api';
+import { Trip } from 'run-and-drive-lib/models';
+
+import { ChangeResponseDto, CreateTripDto, TestTrip, TestTripSummary } from '@models/api';
 import { startEmitting, stopEmitting } from '@redux/actions/emitting_actions';
 import { protectedEmitterApi } from '@redux/queries';
 import { API } from '@redux/queries/api_routes';
 
 export const tripsApi = protectedEmitterApi.injectEndpoints({
   endpoints: (build) => ({
-    getActiveTrip: build.query<ActiveTrip | null, void>({
+    getActiveTrip: build.query<Trip | null, void>({
       query: () => ({
         url: API.ACTIVE_TRIP,
       }),
-      transformResponse: (baseQueryReturnValue) => {
-        const { trip } = baseQueryReturnValue as { trip?: ActiveTrip };
-        return !trip ? null : trip;
-      },
     }),
     getTestTrips: build.query<TestTripSummary[] | null, void>({
       query: () => ({

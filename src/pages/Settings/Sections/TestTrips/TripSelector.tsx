@@ -23,7 +23,7 @@ import { BindingAction, BindingCallback1 } from 'run-and-drive-lib/models';
 import { getErrorMessage } from 'run-and-drive-lib/redux';
 
 import { TestTripSummary } from '@models/api';
-import TripsDetailsTable from '@pages/Settings/Sections/TestTrips/TripsDetailsTable';
+import TripSummaryDetailsTable from '@pages/Settings/Sections/TestTrips/TripSummaryDetailsTable';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { useGetTestTripByIdQuery } from '@redux/queries/trips';
 import { selectActiveTripId, selectTestTrip } from '@redux/selectors/test_trip_selector';
@@ -104,7 +104,7 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
           {downloadedTestTrip && <DeleteTestTrip onDelete={handleTripDelete} />}
         </Stack>
       </FormControl>
-      {chosenTripSummary && <TripsDetailsTable tripSummary={chosenTripSummary} />}
+      {chosenTripSummary && <TripSummaryDetailsTable tripSummary={chosenTripSummary} />}
       {!downloadedTestTrip && (
         <>
           {!testTripError ? (

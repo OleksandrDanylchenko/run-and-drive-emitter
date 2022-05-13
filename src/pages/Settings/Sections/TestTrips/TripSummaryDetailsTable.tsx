@@ -17,7 +17,7 @@ interface Props {
   tripSummary: TestTripSummary;
 }
 
-const TripsDetailsTable: FC<Props> = ({ tripSummary }) => {
+const TripSummaryDetailsTable: FC<Props> = ({ tripSummary }) => {
   return (
     <TableContainer>
       <Table aria-label="Trip details table">
@@ -94,4 +94,4 @@ const TripsDetailsMap = css`
   height: 100%;
 `;
 
-export default TripsDetailsTable;
+export default TripSummaryDetailsTable;

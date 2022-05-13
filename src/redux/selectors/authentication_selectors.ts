@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { DateTime } from 'luxon';
+import { timeToHumanAndRelative } from 'run-and-drive-lib/utils';
 
 import type { RootState } from '@redux/store';
 
@@ -14,11 +14,6 @@ export const selectFormattedActivatedAt = createSelector(
   selectActivatedAt,
   (activatedAt) => {
     if (!activatedAt) return {};
-
-    const dateTime = DateTime.fromISO(activatedAt);
-    return {
-      localeString: dateTime.toLocaleString(DateTime.DATETIME_SHORT),
-      relative: dateTime.toRelative(),
-    };
+    return timeToHumanAndRelative(activatedAt);
   },
 );
