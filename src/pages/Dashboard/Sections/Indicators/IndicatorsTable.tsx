@@ -7,28 +7,27 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { Car, SensorsRecord } from 'run-and-drive-lib/models';
+import { Car } from 'run-and-drive-lib/models';
 import { toPercentString } from 'run-and-drive-lib/utils';
 
 import { TableRowData } from '@models/index';
 import { PressureRow } from '@pages/Dashboard/Sections/Indicators/styles';
+import { useAppSelector } from '@redux/hooks';
+import { selectLastSensorsRecord } from '@redux/selectors/emitting_selectors';
 
 interface Props {
   car: Car;
 }
 
 const IndicatorsTable: FC<Props> = ({ car }) => {
+  const lastSensorsRecord = useAppSelector(selectLastSensorsRecord);
+
   const tableRows = useMemo<TableRowData[]>(() => {
-    const { fuelTankOccupancy, wheelsPressure } = {
-      fuelTankOccupancy: 20,
-      wheelsPressure: {
-        frontLeft: 1.2,
-        frontRight: 1.3,
-        rearLeft: 1.3,
-        rearRight: 1.1,
-      },
-    } as SensorsRecord;
     const { fuelCapacity } = car;
+    const { fuelTankOccupancy, wheelsPressure } = lastSensorsRecord || {
+      fuelTankOccupancy: fuelCapacity,
+      wheelsPressure: null,
+    };
 
     const fuelTankOccupancyPercent = toPercentString(fuelTankOccupancy / fuelCapacity);
 
@@ -37,7 +36,7 @@ const IndicatorsTable: FC<Props> = ({ car }) => {
         label: 'Fuel tank occupancy',
         value: (
           <Typography variant="body2">
-            <strong>{fuelTankOccupancy}L.</strong> / {fuelCapacity}L. <br /> (
+            <strong>{fuelTankOccupancy.toFixed(1)}L.</strong> / {fuelCapacity}L. <br /> (
             {fuelTankOccupancyPercent})
           </Typography>
         ),
@@ -62,7 +61,7 @@ const IndicatorsTable: FC<Props> = ({ car }) => {
         ),
       },
     ];
-  }, [car]);
+  }, [car, lastSensorsRecord]);
 
   return (
     <TableContainer>

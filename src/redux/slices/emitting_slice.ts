@@ -30,8 +30,11 @@ const emittingSlice = createSlice({
     });
     builder.addMatcher(
       sensorsApi.endpoints.createRecord.matchFulfilled,
-      (state, { meta }) => {
-        state.lastSensorsRecord = meta.arg.originalArgs;
+      (state, { payload, meta }) => {
+        state.lastSensorsRecord = {
+          id: payload.id,
+          ...meta.arg.originalArgs,
+        };
       },
     );
   },
