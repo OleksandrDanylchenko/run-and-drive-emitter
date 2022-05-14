@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
-
-import { flexbox } from '@styles/mixins';
-import { pxToRem } from '@styles/utils';
+import { flexbox, pxToRem } from 'run-and-drive-lib/styles';
 
 export const LoginWrapper = css`
   display: flex;

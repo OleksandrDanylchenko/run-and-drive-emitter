@@ -1,7 +1,5 @@
 import { css, Theme } from '@emotion/react';
-import { pxToRem } from 'run-and-drive-lib/styles';
-
-import { flexbox } from '@styles/mixins';
+import { flexbox, pxToRem } from 'run-and-drive-lib/styles';
 
 export const SettingsWrapper = (theme: Theme) => css`
   ${flexbox({

@@ -9,11 +9,11 @@ import { Provider } from 'react-redux';
 
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import { theme } from 'run-and-drive-lib/styles';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import Routing from '@navigation/Routing';
 import { store } from '@redux/store';
-import { theme } from '@styles/theme';
 
 const container = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(container);
