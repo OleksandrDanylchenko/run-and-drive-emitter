@@ -6,6 +6,7 @@ import { DateTime } from 'luxon';
 import { SensorsRecord, Car } from 'run-and-drive-lib/models';
 import { computeDistanceBetween } from 'spherical-geometry-js';
 
+import { CreateSensorsRecord } from '@models/api';
 import { carsApi } from '@redux/queries/cars';
 import { sensorsApi } from '@redux/queries/sensors';
 import { tripsApi } from '@redux/queries/trips';
@@ -68,14 +69,12 @@ export const startEmitting = createAsyncThunk<void, void, AppThunkApi>(
 
         const isoTimestamp = DateTime.now().toISO();
 
-        const newSensorsRecord: SensorsRecord = {
+        const newSensorsRecord: CreateSensorsRecord = {
           location: currentLocation,
           carId: carId,
           fuelTankOccupancy,
           timestamp: isoTimestamp,
         };
-
-        console.log(newSensorsRecord);
 
         await dispatch(
           sensorsApi.endpoints.createRecord.initiate(newSensorsRecord),

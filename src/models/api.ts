@@ -1,3 +1,5 @@
+import { SensorsRecord } from 'run-and-drive-lib/models';
+
 export interface ChangeResponseDto {
   id: string;
 }
@@ -37,3 +39,5 @@ export interface CreateTripDto {
   carId: string;
   location: google.maps.LatLngLiteral;
 }
+
+export type CreateSensorsRecord = Omit<SensorsRecord, 'id'>;
