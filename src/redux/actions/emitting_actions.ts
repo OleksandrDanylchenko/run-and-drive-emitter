@@ -131,7 +131,7 @@ emittingListenerMiddleware.startListening({
     const tripStep = selectTestTripStep(state);
     if (!tripStep) return;
 
-    if (tripStep <= testTrip.locations.length) return;
+    if (tripStep < testTrip.locations.length) return;
 
     // We went through all the steps
     await endTrip(state, appDispatch);
