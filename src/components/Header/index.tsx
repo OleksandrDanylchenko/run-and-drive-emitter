@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsInputAntennaIcon from '@mui/icons-material/SettingsInputAntenna';
-import SupportIcon from '@mui/icons-material/Support';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
