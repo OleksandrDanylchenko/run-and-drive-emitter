@@ -5,10 +5,8 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import { Car } from 'run-and-drive-lib/models';
+import { Car, TableRowData } from 'run-and-drive-lib/models';
 import { capitalizeFirstLetter } from 'run-and-drive-lib/utils';
-
-import { TableRowData } from '@models/index';
 
 interface Props {
   car: Car;

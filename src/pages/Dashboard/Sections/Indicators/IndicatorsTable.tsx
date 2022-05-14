@@ -7,10 +7,9 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { Car } from 'run-and-drive-lib/models';
+import { Car, TableRowData } from 'run-and-drive-lib/models';
 import { toPercentString } from 'run-and-drive-lib/utils';
 
-import { TableRowData } from '@models/index';
 import { PressureRow } from '@pages/Dashboard/Sections/Indicators/styles';
 import { useAppSelector } from '@redux/hooks';
 import { selectLastSensorsRecord } from '@redux/selectors/emitting_selectors';
