@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { Marker } from '@react-google-maps/api';
-import { GoogleMap } from 'run-and-drive-lib/components';
+import { GoogleMap, mapsConstants } from 'run-and-drive-lib/components';
 import { toMeters } from 'run-and-drive-lib/utils';
 
 import { GOOGLE_MAPS_KEY } from '@constants/index';
@@ -55,13 +55,9 @@ const TripDetailsMap: FC<Props> = ({ tripSummary }) => {
 
   const getMarkerIcon = useCallback<(type: 'start' | 'end') => google.maps.Icon>(
     (type) => {
-      const markerSize = 33;
+      const { markerSize, startMarkerUrl, endMarkerUrl } = mapsConstants;
 
-      const markerUrl =
-        type === 'start'
-          ? 'https://i.ibb.co/x7cwmS1/red-marker.png'
-          : 'https://i.ibb.co/phXQnbk/blue-marker.png';
-
+      const markerUrl = type === 'start' ? startMarkerUrl : endMarkerUrl;
       return {
         url: markerUrl,
         scaledSize: new google.maps.Size(markerSize, markerSize),
