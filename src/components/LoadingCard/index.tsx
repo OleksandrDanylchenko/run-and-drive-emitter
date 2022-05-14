@@ -1,7 +1,5 @@
 import React, { FC, ReactElement, useMemo } from 'react';
 
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +7,7 @@ import CardHeader from '@mui/material/CardHeader';
 import Skeleton from '@mui/material/Skeleton';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { getErrorMessage } from 'run-and-drive-lib/redux';
+import { FetchErrorAlert } from 'run-and-drive-lib/components';
 import { getRandomInt } from 'run-and-drive-lib/utils';
 
 import { mediaHeight } from '@pages/Dashboard/Sections/Characteristics/styles';
@@ -38,12 +36,7 @@ const LoadingCard: FC<Props> = ({
   const skeletonLines = useMemo(() => generateSkeletonLines(linesNumber), [linesNumber]);
 
   if (error) {
-    return (
-      <Alert severity="error">
-        <AlertTitle>Cannot display the {title} card</AlertTitle>
-        {getErrorMessage(error)}
-      </Alert>
-    );
+    return <FetchErrorAlert title={`Cannot display the ${title} card`} error={error} />;
   }
   if (!fetching) return null;
 

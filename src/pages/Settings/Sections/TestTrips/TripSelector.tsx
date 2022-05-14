@@ -3,8 +3,6 @@ import React, { FC, useMemo, useState } from 'react';
 import { css } from '@emotion/react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -19,8 +17,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { FetchErrorAlert } from 'run-and-drive-lib/components';
 import { BindingAction, BindingCallback1 } from 'run-and-drive-lib/models';
-import { getErrorMessage } from 'run-and-drive-lib/redux';
 
 import { TestTripSummary } from '@models/api';
 import TripSummaryDetailsTable from '@pages/Settings/Sections/TestTrips/TripSummaryDetailsTable';
@@ -116,12 +114,10 @@ const TripSelector: FC<LocationTableProps> = ({ trips, onTripStart, onTripEnd })
               Load the trip
             </LoadingButton>
           ) : (
-            <Alert severity="error">
-              <AlertTitle>
-                Cannot download this test trip. Please choose another one
-              </AlertTitle>
-              {getErrorMessage(testTripError)}
-            </Alert>
+            <FetchErrorAlert
+              title="Cannot download this test trip. Please choose another one"
+              error={testTripError}
+            />
           )}
         </>
       )}

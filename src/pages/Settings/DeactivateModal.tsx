@@ -4,8 +4,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CancelIcon from '@mui/icons-material/Cancel';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Dialog from '@mui/material/Dialog';
@@ -13,9 +11,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { PasswordInput } from 'run-and-drive-lib/components';
+import { FetchErrorAlert, PasswordInput } from 'run-and-drive-lib/components';
 import { BindingAction } from 'run-and-drive-lib/models';
-import { getErrorMessage } from 'run-and-drive-lib/redux';
 import { isEmpty, passwordSchema } from 'run-and-drive-lib/utils';
 import * as yup from 'yup';
 
@@ -68,10 +65,7 @@ const DeactivateModal: FC<DeactivateModalProps> = ({ open, onClose }) => {
         />
       </DialogContent>
       <Collapse in={!!error}>
-        <Alert severity="error">
-          <AlertTitle>Deactivation failed</AlertTitle>
-          {getErrorMessage(error)}
-        </Alert>
+        <FetchErrorAlert title="Deactivation failed" error={error} />
       </Collapse>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>
