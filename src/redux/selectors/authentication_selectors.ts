@@ -13,7 +13,11 @@ export const selectActivatedAt = (state: RootState) => selectAuthData(state)?.ac
 export const selectFormattedActivatedAt = createSelector(
   selectActivatedAt,
   (activatedAt) => {
-    if (!activatedAt) return {};
+    if (!activatedAt)
+      return {
+        localeString: '',
+        relative: '',
+      };
     return timeToHumanAndRelative(activatedAt);
   },
 );

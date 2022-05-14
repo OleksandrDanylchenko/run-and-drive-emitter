@@ -20,7 +20,7 @@ const OngoingTripDetailsTable: FC<Props> = ({ trip }) => {
     start: { time },
     totalDistance,
   } = trip;
-  const { localeString, relative } = useMemo(() => timeToHumanAndRelative(time), []);
+  const { localeString, relative } = useMemo(() => timeToHumanAndRelative(time), [time]);
 
   const testTripStep = useAppSelector(selectTestTripStep);
   const tripTripLocations = useAppSelector(
