@@ -73,7 +73,7 @@ const TripDetailsMap: FC<Props> = ({ tripSummary }) => {
   );
 
   return (
-    <GoogleMap apiKey={GOOGLE_MAPS_KEY} onMapLoad={setMapInstance} css={TripsDetailsMap}>
+    <GoogleMap apiKey={GOOGLE_MAPS_KEY} onMapLoad={setMapInstance}>
       {mapInstance && (
         <>
           <Marker position={startLocation} icon={getMarkerIcon('start')} />
@@ -87,11 +87,6 @@ const TripDetailsMap: FC<Props> = ({ tripSummary }) => {
 const TripsDetailsMapCell = css`
   padding: 0;
   height: 320px;
-`;
-
-const TripsDetailsMap = css`
-  width: 100%;
-  height: 100%;
 `;
 
 export default TripSummaryDetailsTable;
