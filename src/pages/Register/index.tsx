@@ -18,17 +18,17 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { PasswordInput } from 'run-and-drive-lib/components';
 import { getErrorMessage } from 'run-and-drive-lib/redux';
-import * as yup from 'yup';
-
-import { RegisterPayload } from '@models/api';
-import { useRegisterMutation } from '@redux/queries/authentication';
-
 import {
   activationLoginSchema,
   carActivationCodeSchema,
   isEmpty,
   passwordSchema,
-} from '../../utils';
+} from 'run-and-drive-lib/utils';
+import * as yup from 'yup';
+
+import { RegisterPayload } from '@models/api';
+import { useRegisterMutation } from '@redux/queries/authentication';
+
 import { Form, FormWrapper, LoginWrapper, Title } from './styles';
 
 const registerFormSchema = yup
