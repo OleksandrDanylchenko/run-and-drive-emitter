@@ -3714,10 +3714,10 @@ rollup@^2.43.1, rollup@^2.59.0, rollup@^2.60.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
-run-and-drive-lib@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/run-and-drive-lib/-/run-and-drive-lib-0.2.1.tgz#2da71c22c096aaf8fbabffdc04a952838dbaa2fc"
-  integrity sha512-UVV2gHidcu4CnLSsWmxPNC4gvmVP0CJXdboWeCAPtTdL1652fFRbMPQunw/epYXt1KJ/8k50OQWXwuDFp0HlIA==
+run-and-drive-lib@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/run-and-drive-lib/-/run-and-drive-lib-2.0.0.tgz#cd83dbc165c14110abcb12d70047919ade62dd5e"
+  integrity sha512-JQTKPRVmp5wFRXvoqRxU7Cun5fbTKq68CItki7djAdpEZQ28jduShyQRIVJpIODCdfaypLahQHzbuDsaQuxCcw==
 
 run-parallel@^1.1.9:
   version "1.2.0"

@@ -29,7 +29,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "6",
     "redux-persist": "^6.0.0",
-    "run-and-drive-lib": "^0.2.1",
+    "run-and-drive-lib": "2.0.0",
     "spherical-geometry-js": "^3.0.0",
     "yup": "^0.32.11"
   },
