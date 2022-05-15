@@ -9,7 +9,7 @@ export const selectEmittingRateMs = (state: RootState) =>
   selectEmitting(state).emittingRate;
 
 export const selectEmittingRateHuman = createSelector(selectEmittingRateMs, (rateMs) =>
-  humanizeDuration(rateMs),
+  humanizeDuration(rateMs, { round: true }),
 );
 
 export const selectLastSensorsRecord = (state: RootState) =>
