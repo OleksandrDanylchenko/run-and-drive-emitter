@@ -18,11 +18,11 @@ const LocationTable: FC<LocationTableProps> = ({ location }) => {
     () => [
       {
         label: 'Latitude',
-        value: toGeoString(location.lat),
+        value: location.lat,
       },
       {
         label: 'Longitude',
-        value: toGeoString(location.lng),
+        value: location.lng,
       },
     ],
     [location.lat, location.lng],
@@ -47,7 +47,5 @@ const LocationTable: FC<LocationTableProps> = ({ location }) => {
     </TableContainer>
   );
 };
-
-const toGeoString = (geoNumber: number) => `${geoNumber.toFixed(6)}°`;
 
 export default LocationTable;
